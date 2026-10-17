@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c8qwsdy46h171"]
+
+[node name="mainMenu" type="Control" unique_id=1537384711]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="hunterMode" type="Button" parent="." unique_id=1366566950]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 711.0
+offset_right = 1795.0
+offset_bottom = 1411.0
+theme_override_font_sizes/font_size = 75
+text = "Hunter Mode"
+
+[node name="survivalMode" type="Button" parent="." unique_id=212383333]
+layout_mode = 0
+offset_left = 2045.0
+offset_top = 711.0
+offset_right = 3715.0
+offset_bottom = 1411.0
+theme_override_font_sizes/font_size = 75
+text = "Creative Mode"
+
+[node name="Button" type="Button" parent="." unique_id=752360005]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "~~creative mode~~ "
+
+[node name="Label" type="Label" parent="." unique_id=1596032974]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
