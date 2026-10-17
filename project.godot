@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="UAM3D 2.0"
-run/main_scene="uid://cxvkiw4juvmnl"
+run/main_scene="uid://b1s7hseg0uimf"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,10 @@ window/size/viewport_height=2160
 window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="UAM3D 2.0"
 
 [editor_plugins]
 
