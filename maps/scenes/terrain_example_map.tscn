@@ -17,6 +17,8 @@ background_mode = 2
 sky = SubResource("Sky_kitgp")
 glow_enabled = true
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ec46e"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_dexsy"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_yqo07"]
@@ -31,6 +33,8 @@ worldSize = Vector3(128, 128, 128)
 environment = SubResource("Environment_6a6rp")
 
 [node name="testCube" parent="." unique_id=1979845393 instance=ExtResource("2_jgedj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.044555664, 0, 0)
+mesh = SubResource("CapsuleMesh_ec46e")
 
 [node name="testCube2" parent="." unique_id=302320636 instance=ExtResource("2_jgedj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, -17)
