@@ -25,7 +25,7 @@ window/stretch/aspect="expand"
 
 [dotnet]
 
-project/assembly_name="UAM3D 2.0"
+project/assembly_name="UAM3D"
 
 [editor_plugins]
 
