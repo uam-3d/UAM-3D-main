@@ -1,6 +1,11 @@
 using Godot;
 using System;
 
+
+
+/// <summary>
+/// The behavior script for the player.
+/// </summary>
 public partial class Player : CharacterBody3D
 {
 	public const bool DEV = false;

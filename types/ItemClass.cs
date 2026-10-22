@@ -1,4 +1,4 @@
-namespace UAM3D2.Empty.types;
+namespace UAM3D2.types;
 
 public enum ItemClass
 {
