@@ -1,6 +1,6 @@
-using UAM3D2.types;
+using UAM3D.types;
 
-namespace UAM3D2.data;
+namespace UAM3D.data;
 
 public class Items
 {

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using UAM3D2.types;
+using UAM3D.types;
 
 /// <summary>
 /// Class for the Players' inventory
