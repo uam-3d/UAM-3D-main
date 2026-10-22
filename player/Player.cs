@@ -15,10 +15,53 @@ public partial class Player : CharacterBody3D
 	public const float MaxHealth = 100f;
 	public float Health;
 	public Inventory inventory;
-	
+
+	private Node3D camera;
+	private Vector2 cameraInputDirection = Vector2.Zero;
+	private const float MouseSensitivity = 0.0025f;
+	private const float MinCameraPitch = -Mathf.Pi / 2.0f;
+	private const float MaxCameraPitch = Mathf.Pi / 2.0f;
+
+	public override void _Ready()
+	{
+		camera = GetNode<Node3D>("Camera3D");
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("leftclick"))
+		{
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+		}
+		else if (@event.IsActionPressed("ui_cancel"))
+		{
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+		}
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseMotion mouseMotion &&
+			Input.MouseMode == Input.MouseModeEnum.Captured)
+		{
+			cameraInputDirection += mouseMotion.Relative * MouseSensitivity;
+		}
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		var playerRotation = Rotation;
+		playerRotation.Y -= cameraInputDirection.X;
+		Rotation = playerRotation;
+
+		var cameraRotation = camera.Rotation;
+		cameraRotation.X = Mathf.Clamp(
+			cameraRotation.X - cameraInputDirection.Y,
+			MinCameraPitch,
+			MaxCameraPitch);
+		camera.Rotation = cameraRotation;
+		cameraInputDirection = Vector2.Zero;
+
 		Vector3 velocity = Velocity;
 
 		// Add the gravity.

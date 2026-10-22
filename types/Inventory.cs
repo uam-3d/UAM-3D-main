@@ -54,7 +54,9 @@ public class Inventory
 
 			
 			var slot = slots[allowedSlotIndexes[i]];
-			int amountToAdd = slot.amount + amount > slot.item.maxStackSize && slot.item.maxStackSize != -1
+			int amountToAdd 
+				= slot.amount + amount > slot.item.maxStackSize 
+				  && slot.item.maxStackSize != -1
 				? slot.item.maxStackSize - slot.amount 
 				: amount;
 			
