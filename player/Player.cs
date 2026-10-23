@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-
+namespace UAM3D.player;
 
 /// <summary>
 /// The behavior script for the player.
