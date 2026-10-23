@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using UAM3D.types;
 
 namespace UAM3D.player;
 
@@ -93,5 +94,20 @@ public partial class Player : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+	
+	/// <summary>
+	/// The signal for updated Health
+	/// </summary>
+	[Signal] public delegate void HealthChangedEventHandler(float health);
+	
+	/// <summary>
+	/// Changes the Health of the player.
+	/// </summary>
+	/// <param name="dHealth">The change of health to affect the player.</param>
+	public void ChangeHealth(float dHealth)
+	{
+		this.Health = Mathf.Clamp(this.Health + dHealth, 0, MaxHealth);
+		EmitSignal(nameof(HealthChangedEventHandler), this.Health);
 	}
 }
