@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://8susxa1cp4tw"]
+
+[ext_resource type="Script" uid="uid://bq1p752fspel7" path="res://UI/HUD/hudManager.cs" id="1_0ktxb"]
+
+[node name="Control" type="Control" unique_id=140105494]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_0ktxb")
+
+[node name="Health" type="Label" parent="." unique_id=418421173]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 24.0
+text = "Health: 001"
