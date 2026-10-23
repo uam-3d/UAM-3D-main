@@ -19,7 +19,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	var isCameraMotion := (
 		event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	)
-	print(event)
 	if isCameraMotion:
 		cameraInputDirection = event.screen_relative * mouseSensitivity
 
