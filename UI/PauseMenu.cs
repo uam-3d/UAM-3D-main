@@ -1,7 +1,8 @@
 using Godot;
-using System;
 
-public partial class Control : Godot.Control
+namespace UAM3D.UI;
+
+public partial class PauseMenu : Godot.Control
 {
 	public Node GameManager;
 	
