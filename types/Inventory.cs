@@ -1,7 +1,10 @@
+
+
 using Godot;
 using System;
 using System.Collections.Generic;
 using UAM3D.types;
+
 
 /// <summary>
 /// Class for the Players' inventory
@@ -90,11 +93,10 @@ public class Inventory
 			int amountToRemove = slots[slotIndexes[i]].amount >= amount
 				? amount
 				: slots[slotIndexes[i]].amount;
-			
+
 			slots[slotIndexes[i]].amount -= amountToRemove;
 			amount -= amountToRemove;
 		}
-		
 	}
 
 	
