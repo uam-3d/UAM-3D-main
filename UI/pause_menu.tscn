@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://civ6nn18d36gq"]
+
+[ext_resource type="Script" uid="uid://bv14phkq12pl8" path="res://UI/Control.cs" id="1_jfm1e"]
+[ext_resource type="FontFile" uid="uid://tpan3brron1q" path="res://_fonts/Font-Pack-ec116ca3030490b085a85cd07969ed5a7fb2f3f2/addons/Font Pack/sigmarcyrillic.otf" id="1_ltd3m"]
+
+[node name="pauseMenu" type="CanvasLayer" unique_id=1235428074]
+
+[node name="Control" type="Control" parent="." unique_id=117699143]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jfm1e")
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=668287195]
+layout_mode = 0
+offset_right = 3840.0
+offset_bottom = 2160.0
+color = Color(0.26536053, 0.26536053, 0.2653605, 0.21960784)
+
+[node name="continue" type="Button" parent="Control" unique_id=322195968]
+layout_mode = 0
+offset_left = 1485.0
+offset_top = 478.0
+offset_right = 2355.0
+offset_bottom = 699.0
+theme_override_fonts/font = ExtResource("1_ltd3m")
+theme_override_font_sizes/font_size = 100
+text = "Continue"
+
+[node name="settings" type="Button" parent="Control" unique_id=1982643550]
+layout_mode = 0
+offset_left = 1485.0
+offset_top = 724.0
+offset_right = 2355.0
+offset_bottom = 945.0
+theme_override_fonts/font = ExtResource("1_ltd3m")
+theme_override_font_sizes/font_size = 100
+text = "Settings"
+
+[node name="controls" type="Button" parent="Control" unique_id=1432925411]
+layout_mode = 0
+offset_left = 1485.0
+offset_top = 970.0
+offset_right = 2355.0
+offset_bottom = 1191.0
+theme_override_fonts/font = ExtResource("1_ltd3m")
+theme_override_font_sizes/font_size = 100
+text = "Controls"
+
+[node name="mainMenu" type="Button" parent="Control" unique_id=197136568]
+layout_mode = 0
+offset_left = 1485.0
+offset_top = 1216.0
+offset_right = 2355.0
+offset_bottom = 1437.0
+theme_override_fonts/font = ExtResource("1_ltd3m")
+theme_override_font_sizes/font_size = 100
+text = "Main Menu"
+
+[node name="Quit" type="Button" parent="Control" unique_id=129255451]
+layout_mode = 0
+offset_left = 1485.0
+offset_top = 1462.0
+offset_right = 2355.0
+offset_bottom = 1683.0
+theme_override_fonts/font = ExtResource("1_ltd3m")
+theme_override_font_sizes/font_size = 100
+text = "Quit"
+
+[connection signal="pressed" from="Control/continue" to="Control" method="_on_continue_pressed"]
