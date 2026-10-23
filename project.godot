@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="UAM3D 2.0"
-run/main_scene="uid://b1s7hseg0uimf"
-config/features=PackedStringArray("4.7", "Forward Plus")
+config/name="UAM3D"
+run/main_scene="uid://cxvkiw4juvmnl"
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
@@ -25,11 +25,11 @@ window/stretch/aspect="expand"
 
 [dotnet]
 
-project/assembly_name="UAM3D 2.0"
+project/assembly_name="UAM3D"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/rider-plugin/plugin.cfg")
 
 [input]
 
