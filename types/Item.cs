@@ -1,7 +1,7 @@
 namespace UAM3D.types;
 
 /// <summary>
-/// A class for an item
+/// //TODO: SUMMARIZE
 /// </summary>
 public class Item
 {

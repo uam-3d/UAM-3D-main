@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="UAM3D 2.0"
+config/name="UAM3D"
 run/main_scene="uid://b1s7hseg0uimf"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"

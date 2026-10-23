@@ -1,17 +1,14 @@
-
-
-using Godot;
 using System;
 using System.Collections.Generic;
-using UAM3D.types;
 
+namespace UAM3D.types;
 
 /// <summary>
-/// Class for the Players' inventory
+/// Class for the Players' inventory, in which <see cref="Item">Items</see> are stored.
 /// </summary>
 public class Inventory
 {
-	public List<InventorySlot> slots;
+	public List<InventorySlot> slots { get; }
 
 	/// <summary>
 	/// Creates an inventory with the specified number of empty slots.
@@ -60,8 +57,8 @@ public class Inventory
 			int amountToAdd 
 				= slot.amount + amount > slot.item.maxStackSize 
 				  && slot.item.maxStackSize != -1
-				? slot.item.maxStackSize - slot.amount 
-				: amount;
+					? slot.item.maxStackSize - slot.amount 
+					: amount;
 			
 			slots[allowedSlotIndexes[i]].amount += amountToAdd;
 			slots[allowedSlotIndexes[i]].item = item;
@@ -107,10 +104,9 @@ public class Inventory
 	/// <param name="amount">The number of units to drop. Defaults to 1.</param>
 	/// <remarks>This method is currently not implemented.</remarks>
 	/// <exception cref="NotImplementedException">Always thrown because dropping is not implemented.</exception>
-	public void DropItem(Item item, int amount = 1)
-	{
-		throw new NotImplementedException();
-	}
+	[Obsolete("Not yet implemented")]
+	public void DropItem(Item item, int amount = 1) => throw new NotImplementedException();
+	// TODO: IMPLEMENT
 }
 
 /// <summary>

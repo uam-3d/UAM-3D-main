@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://civ6nn18d36gq"]
 
-[ext_resource type="Script" uid="uid://bv14phkq12pl8" path="res://UI/Control.cs" id="1_jfm1e"]
+[ext_resource type="Script" uid="uid://da5dyil4h5mlj" path="res://UI/PauseMenu.cs" id="1_jfm1e"]
 [ext_resource type="FontFile" uid="uid://tpan3brron1q" path="res://_fonts/Font-Pack-ec116ca3030490b085a85cd07969ed5a7fb2f3f2/addons/Font Pack/sigmarcyrillic.otf" id="1_ltd3m"]
 
 [node name="pauseMenu" type="CanvasLayer" unique_id=1235428074]
