@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bd41oaoekkvh3" path="res://Scripts/UI/HUD/HudManager.cs" id="1_53dev"]
 [ext_resource type="PackedScene" uid="uid://b2y3otkho0nnf" path="res://Scenes/UI/HUD/Health.tscn" id="2_dm5mv"]
+[ext_resource type="PackedScene" uid="uid://cuiusmdj1swub" path="res://Scenes/UI/HUD/Coordinates.tscn" id="3_e5u8r"]
 
 [node name="HUD" type="Control" unique_id=140105494]
 layout_mode = 3
@@ -11,4 +12,10 @@ offset_bottom = 40.0
 script = ExtResource("1_53dev")
 
 [node name="Health" parent="." unique_id=84029256 instance=ExtResource("2_dm5mv")]
+layout_mode = 0
+offset_top = 2048.0
+offset_right = 0.0
+offset_bottom = 2048.0
+
+[node name="Coordinates" parent="." unique_id=706409736 instance=ExtResource("3_e5u8r")]
 layout_mode = 0

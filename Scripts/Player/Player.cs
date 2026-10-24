@@ -15,7 +15,7 @@ public partial class Player : CharacterBody3D
 	private const float JumpVelocity = 4.5f;
 
 	private const float MaxHealth = 100f;
-	public float Health;
+	public float Health = MaxHealth;
 	public Inventory Inventory = new(Constants.InitialInventorySize);
 
 	private Node3D camera;
@@ -31,7 +31,7 @@ public partial class Player : CharacterBody3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("leftclick"))
+		if (@event.IsActionPressed("leftclick") && GetNode("/root/GameManager").Get("inPauseMenu").AsBool() == false)
 		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		}
@@ -48,6 +48,11 @@ public partial class Player : CharacterBody3D
 		{
 			cameraInputDirection += mouseMotion.Relative * MouseSensitivity;
 		}
+	}
+
+	public override void _Process(double delta)
+	{
+		EmitSignal(SignalName.UpdateCoords, GlobalPosition);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -115,6 +120,7 @@ public partial class Player : CharacterBody3D
 	/// The signal for updated Health
 	/// </summary>
 	[Signal] public delegate void HealthChangedEventHandler(float health);
+	[Signal] public delegate void UpdateCoordsEventHandler(Vector3 coords);
 	
 	/// <summary>
 	/// Changes the Health of the player.
@@ -123,6 +129,6 @@ public partial class Player : CharacterBody3D
 	public void ChangeHealth(float dHealth)
 	{
 		this.Health = Mathf.Clamp(this.Health + dHealth, 0, MaxHealth);
-		EmitSignal(nameof(HealthChangedEventHandler), this.Health);
+		EmitSignal(SignalName.HealthChanged, this.Health);
 	}
 }

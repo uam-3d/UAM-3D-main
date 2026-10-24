@@ -4,6 +4,9 @@ namespace UAM3D.Scripts.UI;
 
 /// <summary>
 /// The PauseMenu Class.
+///
+/// @JIBO: 
+/// Die Logik des Pause Menus ist sehr inelegant. Benutze Lieber Signals fuer die Yes and No Buttons
 /// </summary>
 public partial class PauseMenu : Control
 {
@@ -25,24 +28,23 @@ public partial class PauseMenu : Control
 	
 	public override void _Ready()
 	{
-		map = ((Maps.TilemapTest)GetParent().GetParent()).mapName;
 		
 		gameManager = GetNode("/root/GameManager");
 		
-		_continueButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/continue");
+		_continueButton = GetNode<Button>("continue");
 		_continueButton.Pressed += OnContinueButtonPressed; // Equivalent to assigning a Signal in GDScript
-		_settingsButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/settings");
+		_settingsButton = GetNode<Button>("settings");
 		_settingsButton.Pressed += OnSettingsButtonPressed;
-		_controlsButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/controls");
+		_controlsButton = GetNode<Button>("controls");
 		_controlsButton.Pressed += OnControlsButtonPressed;
-		_mainMenuButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/mainMenu");
+		_mainMenuButton = GetNode<Button>("mainMenu");
 		_mainMenuButton.Pressed += OnMainMenuButtonPressed;
-		_quitButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/quit");
+		_quitButton = GetNode<Button>("quit");
 		_quitButton.Pressed += OnQuitButtonPressed;
 
-		_confirmYes = GetNode<Button>("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/yes");
+		_confirmYes = GetNode<Button>("confirmMenu/fgRect/yes");
 		_confirmYes.Pressed += OnYesPressed;
-		_confirmNo = GetNode<Button>("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/no");
+		_confirmNo = GetNode<Button>("confirmMenu/fgRect/no");
 		_confirmNo.Pressed += OnNoPressed;
 
 	}
@@ -63,6 +65,12 @@ public partial class PauseMenu : Control
 		gameManager.Set("inPauseMenu", false);
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
+
+	// @JIBO: Fuer dich ;)
+	[Signal]
+	public delegate void OnPauseEventHandler();
+	[Signal]
+	public delegate void OnResumeEventHandler();
 	
 	private void OnSettingsButtonPressed()
 	{
@@ -77,19 +85,19 @@ public partial class PauseMenu : Control
 	private void OnMainMenuButtonPressed()// return to the main scene, will be asked to confirm once
 	{
 		_inMainMenu = true;
-		((Label)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/titleLabel")).Text =
+		((Label)GetNode("confirmMenu/fgRect/titleLabel")).Text =
 			"Are you sure you want to return \n to the Main Menu?";
 		((CanvasLayer)GetParent()).Hide();
-		((CanvasLayer)GetNode("/root/terrainExampleMap/pauseMenu/Control/confirmMenu")).Show();
+		((CanvasLayer)GetNode("confirmMenu")).Show();
 	}
 
 	private void OnQuitButtonPressed()// close the game, will be asked to confirm once
 	{
-		((Label)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/titleLabel")).Text =
+		((Label)GetNode("confirmMenu/fgRect/titleLabel")).Text =
 			"Are you sure you want to Quit?";
 		_inQuit = true;
 		((CanvasLayer)GetParent()).Hide();
-		((CanvasLayer)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu")).Show();
+		((CanvasLayer)GetNode("confirmMenu")).Show();
 	}
 
 	private void OnYesPressed()
@@ -105,7 +113,7 @@ public partial class PauseMenu : Control
 		{
 			gameManager.Set("inPauseMenu", false);
 			_inMainMenu = false;
-			GetTree().ChangeSceneToFile("res://UI/main_menu.tscn");
+			GetTree().ChangeSceneToFile("res://Scenes/UI/main_menu.tscn");
 		}
 	}
 
@@ -113,12 +121,12 @@ public partial class PauseMenu : Control
 	{
 		_inQuit = false;
 		_inMainMenu = false;
-		((CanvasLayer)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu")).Hide();
+		((CanvasLayer)GetNode("confirmMenu")).Hide();
 		((CanvasLayer)GetParent()).Show();
 	}
 
 	public override void _Process(double delta)
 	{
-		GD.Print(Input.MouseMode);
+		// GD.Print(Input.MouseMode);
 	}
 }
