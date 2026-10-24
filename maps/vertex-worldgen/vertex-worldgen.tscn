@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c4cfue2qb3uxh"]
+
+[ext_resource type="Script" uid="uid://tn8wwar51ba3" path="res://maps/vertex-worldgen/VertexWorldgen.cs" id="1_s04u7"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ec46e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ega07"]
+
+[node name="VertexWorldgen" type="Node3D" unique_id=1569100412]
+script = ExtResource("1_s04u7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1944651291]
+mesh = SubResource("ArrayMesh_ec46e")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=880437320]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1926617068]
+shape = SubResource("BoxShape3D_ega07")
