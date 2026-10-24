@@ -17,25 +17,29 @@ public partial class PauseMenu : Godot.Control
 
 	private bool _inQuit = false;
 	private bool _inMainMenu = false;
+
+	private string map;
 	
-	public override void _Ready() 
+	public override void _Ready()
 	{
+		map = ((TilemapTest)GetParent().GetParent()).mapName;
+		
 		GameManager = GetNode("/root/GameManager");
 		
-		_continueButton = GetNode<Button>("/root/terrainExampleMap/pauseMenu/Control/continue");
+		_continueButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/continue");
 		_continueButton.Pressed += OnContinueButtonPressed;														// Equivalent to assigning a Signal in GDScript
-		_settingsButton = GetNode<Button>("/root/terrainExampleMap/pauseMenu/Control/settings");
+		_settingsButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/settings");
 		_settingsButton.Pressed += OnSettingsButtonPressed;
-		_controlsButton = GetNode<Button>("/root/terrainExampleMap/pauseMenu/Control/controls");
+		_controlsButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/controls");
 		_controlsButton.Pressed += OnControlsButtonPressed;
-		_mainMenuButton = GetNode<Button>("/root/terrainExampleMap/pauseMenu/Control/mainMenu");
+		_mainMenuButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/mainMenu");
 		_mainMenuButton.Pressed += OnMainMenuButtonPressed;
-		_quitButton = GetNode<Button>("/root/terrainExampleMap/pauseMenu/Control/quit");
+		_quitButton = GetNode<Button>("/root/" + map + "/pauseMenu/Control/quit");
 		_quitButton.Pressed += OnQuitButtonPressed;
 
-		_confirmYes = GetNode<Button>("/root/terrainExampleMap/pauseMenu/Control/confirmMenu/fgRect/yes");
+		_confirmYes = GetNode<Button>("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/yes");
 		_confirmYes.Pressed += onYesPressed;
-		_confirmNo = GetNode<Button>("/root/terrainExampleMap/pauseMenu/Control/confirmMenu/fgRect/no");
+		_confirmNo = GetNode<Button>("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/no");
 		_confirmNo.Pressed += onNoPressed;
 
 	}
@@ -70,22 +74,19 @@ public partial class PauseMenu : Godot.Control
 	private void OnMainMenuButtonPressed()																		// return to the main scene, will be asked to confirm once
 	{
 		_inMainMenu = true;
-		((Label)GetNode("/root/terrainExampleMap/pauseMenu/Control/confirmMenu/fgRect/titleLabel")).Text = "Are you sure you want to return \n to the Main Menu?";
+		((Label)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/titleLabel")).Text =
+			"Are you sure you want to return \n to the Main Menu?";
 		((CanvasLayer)GetParent()).Hide();
 		((CanvasLayer)GetNode("/root/terrainExampleMap/pauseMenu/Control/confirmMenu")).Show();
-		// GetTree().ChangeSceneToFile("res://UI/main_menu.tscn");
-		// GameManager.Set("inPauseMenu", false);
 	}
 
 	private void OnQuitButtonPressed()																			// close the game, will be asked to confirm once
 	{
-		((Label)GetNode("/root/terrainExampleMap/pauseMenu/Control/confirmMenu/fgRect/titleLabel")).Text =
+		((Label)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu/fgRect/titleLabel")).Text =
 			"Are you sure you want to Quit?";
 		_inQuit = true;
 		((CanvasLayer)GetParent()).Hide();
-		((CanvasLayer)GetNode("/root/terrainExampleMap/pauseMenu/Control/confirmMenu")).Show();
-		// GameManager.Set("inPauseMenu", false);
-		// GetTree().Quit();
+		((CanvasLayer)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu")).Show();
 	}
 
 	private void onYesPressed()
@@ -109,8 +110,12 @@ public partial class PauseMenu : Godot.Control
 	{
 		_inQuit = false;
 		_inMainMenu = false;
-		((CanvasLayer)GetNode("/root/terrainExampleMap/pauseMenu/Control/confirmMenu")).Hide();
+		((CanvasLayer)GetNode("/root/" + map + "/pauseMenu/Control/confirmMenu")).Hide();
 		((CanvasLayer)GetParent()).Show();
 	}
-	
+
+	public override void _Process(double delta)
+	{
+		GD.Print(Input.MouseMode);
+	}
 }
