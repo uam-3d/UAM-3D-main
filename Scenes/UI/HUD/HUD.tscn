@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://8susxa1cp4tw"]
+
+[ext_resource type="Script" uid="uid://bd41oaoekkvh3" path="res://Scripts/UI/HUD/HudManager.cs" id="1_53dev"]
+[ext_resource type="PackedScene" uid="uid://b2y3otkho0nnf" path="res://Scenes/UI/HUD/Health.tscn" id="2_dm5mv"]
+
+[node name="HUD" type="Control" unique_id=140105494]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_53dev")
+
+[node name="Health" parent="." unique_id=84029256 instance=ExtResource("2_dm5mv")]
+layout_mode = 0
