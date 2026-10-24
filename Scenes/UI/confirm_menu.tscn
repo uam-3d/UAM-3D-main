@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://d1a6vymxc60av"]
+
+[ext_resource type="FontFile" uid="uid://cbs4h1sn4sfmc" path="res://Fonts/sigmarcyrillic.otf" id="1_cwajh"]
+
+[node name="confirmMenu" type="CanvasLayer" unique_id=961986040]
+
+[node name="bgRect" type="ColorRect" parent="." unique_id=1819181662]
+offset_right = 3840.0
+offset_bottom = 2160.0
+color = Color(0.26536053, 0.26536053, 0.2653605, 0.21960784)
+
+[node name="fgRect" type="ColorRect" parent="." unique_id=1116331567]
+offset_left = 740.445
+offset_top = 417.0
+offset_right = 3099.5564
+offset_bottom = 1744.0
+color = Color(0.07551012, 0.07551012, 0.07551011, 0.21960784)
+
+[node name="titleLabel" type="Label" parent="fgRect" unique_id=1316614398]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 75.0
+offset_right = 2234.111
+offset_bottom = 425.0
+theme_override_fonts/font = ExtResource("1_cwajh")
+theme_override_font_sizes/font_size = 85
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="yes" type="Button" parent="fgRect" unique_id=386283164]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 638.0
+offset_right = 1054.556
+offset_bottom = 1088.0
+theme_override_fonts/font = ExtResource("1_cwajh")
+theme_override_font_sizes/font_size = 85
+text = "Yes"
+
+[node name="no" type="Button" parent="fgRect" unique_id=1730603100]
+layout_mode = 0
+offset_left = 1301.556
+offset_top = 638.0
+offset_right = 2231.112
+offset_bottom = 1088.0
+theme_override_fonts/font = ExtResource("1_cwajh")
+theme_override_font_sizes/font_size = 85
+text = "No"

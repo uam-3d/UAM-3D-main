@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dkylht0mlh8dv"]
+
+[ext_resource type="PackedScene" uid="uid://cip42278yd6ei" path="res://3D Assets/custom/grass_mesh.tscn" id="1_kfoe4"]
+[ext_resource type="PackedScene" uid="uid://nu3wyteijhft" path="res://3D Assets/custom/rock_mesh.tscn" id="2_lwx3p"]
+
+[node name="tilesTest" type="Node3D" unique_id=1290198059]
+
+[node name="grassMesh" parent="." unique_id=937327325 instance=ExtResource("1_kfoe4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="rockMesh" parent="." unique_id=1954938147 instance=ExtResource("2_lwx3p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
