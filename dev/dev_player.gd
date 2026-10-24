@@ -10,6 +10,8 @@ var mouseSensitivity := 0.25
 @onready var camera3D: Camera3D = $cameraPivot/SpringArm3D/Camera3D
 
 func _input(event: InputEvent) -> void:
+	if GameManager.inPauseMenu:
+		return
 	if event.is_action_pressed("leftclick"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if event.is_action_pressed("ui_cancel"):

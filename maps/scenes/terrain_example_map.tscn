@@ -42,3 +42,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18, 0)
 multimesh = SubResource("MultiMesh_yqo07")
 
 [node name="pauseMenu" parent="." unique_id=1235428074 instance=ExtResource("4_6a6rp")]
+visible = false

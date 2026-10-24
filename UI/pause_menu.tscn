@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://da5dyil4h5mlj" path="res://UI/PauseMenu.cs" id="1_jfm1e"]
 [ext_resource type="FontFile" uid="uid://tpan3brron1q" path="res://_fonts/Font-Pack-ec116ca3030490b085a85cd07969ed5a7fb2f3f2/addons/Font Pack/sigmarcyrillic.otf" id="1_ltd3m"]
+[ext_resource type="PackedScene" uid="uid://d1a6vymxc60av" path="res://UI/confirm_menu.tscn" id="3_03fe5"]
 
 [node name="pauseMenu" type="CanvasLayer" unique_id=1235428074]
 
@@ -58,7 +59,7 @@ theme_override_fonts/font = ExtResource("1_ltd3m")
 theme_override_font_sizes/font_size = 100
 text = "Main Menu"
 
-[node name="Quit" type="Button" parent="Control" unique_id=129255451]
+[node name="quit" type="Button" parent="Control" unique_id=129255451]
 layout_mode = 0
 offset_left = 1485.0
 offset_top = 1462.0
@@ -67,5 +68,8 @@ offset_bottom = 1683.0
 theme_override_fonts/font = ExtResource("1_ltd3m")
 theme_override_font_sizes/font_size = 100
 text = "Quit"
+
+[node name="confirmMenu" parent="Control" unique_id=961986040 instance=ExtResource("3_03fe5")]
+visible = false
 
 [connection signal="pressed" from="Control/continue" to="Control" method="_on_continue_pressed"]
