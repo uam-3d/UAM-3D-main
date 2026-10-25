@@ -43,6 +43,16 @@ theme_override_fonts/font = ExtResource("2_is55k")
 theme_override_font_sizes/font_size = 75
 text = "~~creative mode~~ "
 
+[node name="oldMode" type="Button" parent="." unique_id=1689171267]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 1647.0
+offset_right = 3715.0
+offset_bottom = 1840.0
+theme_override_fonts/font = ExtResource("2_is55k")
+theme_override_font_sizes/font_size = 75
+text = "Press here to play older world generation maps"
+
 [node name="Label" type="Label" parent="." unique_id=1596032974]
 layout_mode = 0
 offset_left = 182.0
@@ -57,3 +67,4 @@ text = "Select your Player Controller."
 visible = false
 
 [connection signal="pressed" from="creativeMode" to="." method="_on_creative_mode_pressed"]
+[connection signal="pressed" from="oldMode" to="." method="_on_creative_mode_pressed"]

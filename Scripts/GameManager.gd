@@ -6,12 +6,12 @@ extends Node
 var inPauseMenu: bool = false
 
 #seed menu
-var customSeed: Variant
+var CustomSeed: Variant
 
 #endregion 
 
 #region World generation
 
-const DIMENSION := Vector3(16, 64, 16)
+const DIMENSION := Vector3(32, 64, 32)
 
 #endregion 

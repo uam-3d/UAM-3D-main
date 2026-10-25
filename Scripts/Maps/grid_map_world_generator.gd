@@ -8,8 +8,8 @@ var data: Array[Vector3i] = []
 func _ready() -> void:
 	#clear()
 	var noise = FastNoiseLite.new()
-	if GameManager.customSeed:
-		noise.seed = GameManager.customSeed
+	if GameManager.CustomSeed:
+		noise.seed = GameManager.CustomSeed
 	else:
 		noise.seed = rng.randi_range(0, 999999999)
 	print(noise.seed)
