@@ -74,26 +74,28 @@ public partial class Player : CharacterBody3D
 		// Add the gravity.
 		if (!IsOnFloor() && !_flying)
 		{
-			velocity += GetGravity() * (float)delta;
+            velocity += GetGravity() * (float)delta;
 		}
+        
 
 		// Handle Jump.
 		if (Input.IsActionJustPressed("spacebar"))
 		{
 			if (IsOnFloor())
 				velocity.Y = JumpVelocity;
-			else
-			{
-				if (Constants.Dev)
-				{
-					if (!_flying) _flying = true;
-					else
-					{
-						velocity.Y = JumpVelocity;
-					}
-				}
-			}
+			else if (Constants.Dev)
+            {
+                if (!_flying) 
+                    _flying = true;
+                else 
+                    velocity.Y = JumpVelocity; 
+            }
+			
 		}
+        
+        if (Input.IsActionJustPressed("shift") && _flying) velocity.Y = -JumpVelocity; 
+        if (Input.IsActionJustReleased("shift") && _flying) velocity.Y = 0;
+        if (Input.IsActionJustReleased("spacebar") && _flying) velocity.Y = 0;
 		
 		
 
@@ -111,6 +113,7 @@ public partial class Player : CharacterBody3D
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
 		}
+
 
 		Velocity = velocity;
 		MoveAndSlide();

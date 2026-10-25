@@ -28,7 +28,6 @@ public partial class PauseMenu : Control
 	
 	public override void _Ready()
 	{
-		
 		gameManager = GetNode("/root/GameManager");
 		
 		_continueButton = GetNode<Button>("continue");
@@ -47,13 +46,19 @@ public partial class PauseMenu : Control
 		_confirmNo = GetNode<Button>("confirmMenu/fgRect/no");
 		_confirmNo.Pressed += OnNoPressed;
 
+        HideMenu();
 	}
+
+    private void ShowMenu() => GetParent<CanvasLayer>().Show();
+    private void HideMenu() => GetParent<CanvasLayer>().Hide();
+    private void ShowSubMenu(string id) => GetNode<CanvasLayer>(id).Show();
+    private void HideSubMenu(string id) => GetNode<CanvasLayer>(id).Hide();
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		if (Input.MouseMode == Input.MouseModeEnum.Captured && Input.IsActionJustPressed("tab")) // Open Pause Menu
 		{ // Input.MouseMode is set to "MouseModeEnum.Captured" in dev_player.gd line 15-18
-			((CanvasLayer)GetParent()).Show();
+			ShowMenu();
 			gameManager.Set("inPauseMenu", true);
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
@@ -61,7 +66,7 @@ public partial class PauseMenu : Control
 
 	private void OnContinueButtonPressed() // close Pause Menu
 	{
-		((CanvasLayer)GetParent()).Hide();
+        HideMenu();
 		gameManager.Set("inPauseMenu", false);
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -85,19 +90,19 @@ public partial class PauseMenu : Control
 	private void OnMainMenuButtonPressed()// return to the main scene, will be asked to confirm once
 	{
 		_inMainMenu = true;
-		((Label)GetNode("confirmMenu/fgRect/titleLabel")).Text =
+		GetNode<Label>("confirmMenu/fgRect/titleLabel").Text =
 			"Are you sure you want to return \n to the Main Menu?";
-		((CanvasLayer)GetParent()).Hide();
-		((CanvasLayer)GetNode("confirmMenu")).Show();
+		HideMenu();
+        ShowSubMenu("confirmMenu");
 	}
 
 	private void OnQuitButtonPressed()// close the game, will be asked to confirm once
 	{
-		((Label)GetNode("confirmMenu/fgRect/titleLabel")).Text =
+		GetNode<Label>("confirmMenu/fgRect/titleLabel").Text =
 			"Are you sure you want to Quit?";
 		_inQuit = true;
-		((CanvasLayer)GetParent()).Hide();
-		((CanvasLayer)GetNode("confirmMenu")).Show();
+        HideMenu();
+		ShowSubMenu("confirmMenu");
 	}
 
 	private void OnYesPressed()
@@ -121,8 +126,8 @@ public partial class PauseMenu : Control
 	{
 		_inQuit = false;
 		_inMainMenu = false;
-		((CanvasLayer)GetNode("confirmMenu")).Hide();
-		((CanvasLayer)GetParent()).Show();
+		HideSubMenu("confirmMenu");
+		ShowMenu();
 	}
 
 	public override void _Process(double delta)
