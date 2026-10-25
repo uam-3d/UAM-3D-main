@@ -41,7 +41,7 @@ public class Inventory
 		List<int> allowedSlotIndexes = [];
 		foreach (var slot in Slots)
 		{
-			if (slot.Item == item || slot.Item == null) allowedSlotIndexes.Add(Slots.IndexOf(slot));
+			if (slot.item == item || slot.item == null) allowedSlotIndexes.Add(Slots.IndexOf(slot));
 		}
 
 		for (var i = 0; amount > 0; i++)
@@ -55,13 +55,13 @@ public class Inventory
 			
 			var slot = Slots[allowedSlotIndexes[i]];
 			int amountToAdd 
-				= slot.Amount + amount > slot.Item.MaxStackSize 
-				  && slot.Item.MaxStackSize != -1
-					? slot.Item.MaxStackSize - slot.Amount 
+				= slot.amount + amount > slot.item.maxStackSize 
+				  && slot.item.maxStackSize != -1
+					? slot.item.maxStackSize - slot.amount 
 					: amount;
 			
-			Slots[allowedSlotIndexes[i]].Amount += amountToAdd;
-			Slots[allowedSlotIndexes[i]].Item = item;
+			Slots[allowedSlotIndexes[i]].amount += amountToAdd;
+			Slots[allowedSlotIndexes[i]].item = item;
 			Slots.RemoveAt(allowedSlotIndexes[i]);
 			amount -= amountToAdd;
 		}
@@ -79,22 +79,32 @@ public class Inventory
 		List<int> slotIndexes = [];
 		foreach (var slot in Slots)
 		{
-			if (slot.Item != item) continue;
+			if (slot.item != item) continue;
 			slotIndexes.Add(Slots.IndexOf(slot));
-			totalItems+= slot.Amount;
+			totalItems+= slot.amount;
 		}
 
-		if (amount < totalItems) throw new Exception($"Not enough item \"{item.Id}\" in inventory");
+		if (amount < totalItems) throw new Exception($"Not enough item \"{item.id}\" in inventory");
 		for (var i = 0; amount > 0; i++)
 		{
-			int amountToRemove = Slots[slotIndexes[i]].Amount >= amount
+			int amountToRemove = Slots[slotIndexes[i]].amount >= amount
 				? amount
-				: Slots[slotIndexes[i]].Amount;
+				: Slots[slotIndexes[i]].amount;
 
-			Slots[slotIndexes[i]].Amount -= amountToRemove;
+			Slots[slotIndexes[i]].amount -= amountToRemove;
 			amount -= amountToRemove;
 		}
 	}
+
+    /// <summary>
+    /// Removes all items from a given slot.
+    /// </summary>
+    /// <param name="slot">The slot from which to remove the items.</param>
+    public void RemoveFromSlot(InventorySlot slot)
+    {
+        slot.item = null;
+        slot.amount = new int();
+    }
 
 	
 	/// <summary>
@@ -117,10 +127,10 @@ public class InventorySlot
 	/// <summary>
 	/// The item in this slot, or <see langword="null"/> when the slot is empty.
 	/// </summary>
-	public Item Item;
+	public Item item;
 
 	/// <summary>
 	/// The number of items in the stack.
 	/// </summary>
-	public int Amount;
+	public int amount;
 }

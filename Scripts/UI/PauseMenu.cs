@@ -68,7 +68,6 @@ public partial class PauseMenu : Control
 			{
 				HideMenu();
 				Input.MouseMode = Input.MouseModeEnum.Captured;
-
 			}
 		}
 	}
