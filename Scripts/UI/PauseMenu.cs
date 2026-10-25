@@ -46,13 +46,13 @@ public partial class PauseMenu : Control
 		_confirmNo = GetNode<Button>("confirmMenu/fgRect/no");
 		_confirmNo.Pressed += OnNoPressed;
 
-        HideMenu();
+		HideMenu();
 	}
 
-    private void ShowMenu() => GetParent<CanvasLayer>().Show();
-    private void HideMenu() => GetParent<CanvasLayer>().Hide();
-    private void ShowSubMenu(string id) => GetNode<CanvasLayer>(id).Show();
-    private void HideSubMenu(string id) => GetNode<CanvasLayer>(id).Hide();
+	private void ShowMenu() => GetParent<CanvasLayer>().Show();
+	private void HideMenu() => GetParent<CanvasLayer>().Hide();
+	private void ShowSubMenu(string id) => GetNode<CanvasLayer>(id).Show();
+	private void HideSubMenu(string id) => GetNode<CanvasLayer>(id).Hide();
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
@@ -66,7 +66,7 @@ public partial class PauseMenu : Control
 
 	private void OnContinueButtonPressed() // close Pause Menu
 	{
-        HideMenu();
+		HideMenu();
 		gameManager.Set("inPauseMenu", false);
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -93,7 +93,7 @@ public partial class PauseMenu : Control
 		GetNode<Label>("confirmMenu/fgRect/titleLabel").Text =
 			"Are you sure you want to return \n to the Main Menu?";
 		HideMenu();
-        ShowSubMenu("confirmMenu");
+		ShowSubMenu("confirmMenu");
 	}
 
 	private void OnQuitButtonPressed()// close the game, will be asked to confirm once
@@ -101,7 +101,7 @@ public partial class PauseMenu : Control
 		GetNode<Label>("confirmMenu/fgRect/titleLabel").Text =
 			"Are you sure you want to Quit?";
 		_inQuit = true;
-        HideMenu();
+		HideMenu();
 		ShowSubMenu("confirmMenu");
 	}
 
