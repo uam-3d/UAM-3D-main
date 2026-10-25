@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using UAM3D.Data;
 using UAM3D.Types;
@@ -5,140 +6,204 @@ using UAM3D.Types;
 namespace UAM3D.Scripts.Player;
 
 /// <summary>
-/// The behavior script for the player.
+/// The main Class for the player.
 /// </summary>
 public partial class Player : CharacterBody3D
 {
-	private bool _flying;
-    private bool _dead = false;
+    [Signal] public delegate void HealthChangedEventHandler(float health);
+    [Signal] public delegate void UpdateCoordsEventHandler(Vector3 coords);
+    [Signal] public delegate void PlayerDiedEventHandler();
+
+     public float MoveSpeed { get; set; } = 5.0f;
+    public float JumpVelocity { get; set; } = 4.5f;
+    public float FlySpeed { get; set; } = 6.0f;
+    public float Acceleration { get; set; } = 25.0f;
+    public float Deceleration { get; set; } = 30.0f;
     
-	private const float Speed = 5.0f;
-	private const float JumpVelocity = 4.5f;
+    public float MouseSensitivity { get; set; } = 0.0025f;
+    public Node3D Camera { get; set; }
+    
+    public float MaxHealth { get; set; } = 100;
+    public float CurrentHealth { get; private set; }
+    public Inventory Inventory { get; private set; }
 
-	private const float MaxHealth = 100f;
-	public float Health = MaxHealth;
-	public Inventory Inventory = new(Constants.InitialInventorySize);
+    private bool _isFlying;
+    private bool _isDead;
+    private Vector2 _mouseInput = Vector2.Zero;
 
-	private Node3D camera;
-	private Vector2 cameraInputDirection = Vector2.Zero;
-	private const float MouseSensitivity = 0.0025f;
-	private const float MinCameraPitch = -Mathf.Pi / 2.0f;
-	private const float MaxCameraPitch = Mathf.Pi / 2.0f;
+    private static readonly float MinPitch = Mathf.DegToRad(-89.0f);
+    private static readonly float MaxPitch = Mathf.DegToRad(89.0f);
 
-	public override void _Ready()
-	{
-		camera = GetNode<Node3D>("Camera3D");
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (@event.IsActionPressed("leftclick") && GetNode("/root/GameManager").Get("inPauseMenu").AsBool() == false)
-		{
-			Input.MouseMode = Input.MouseModeEnum.Captured;
-		}
-		else if (@event.IsActionPressed("ui_cancel"))
-		{
-			Input.MouseMode = Input.MouseModeEnum.Visible;
-		}
-	}
-
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event is InputEventMouseMotion mouseMotion &&
-			Input.MouseMode == Input.MouseModeEnum.Captured)
-		{
-			cameraInputDirection += mouseMotion.Relative * MouseSensitivity;
-		}
-	}
-
-	public override void _Process(double delta)
-	{
-		EmitSignal(SignalName.UpdateCoords, GlobalPosition);
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
-		var playerRotation = Rotation;
-		playerRotation.Y -= cameraInputDirection.X;
-		Rotation = playerRotation;
-
-		var cameraRotation = camera.Rotation;
-		cameraRotation.X = Mathf.Clamp(
-			cameraRotation.X - cameraInputDirection.Y,
-			MinCameraPitch,
-			MaxCameraPitch);
-		camera.Rotation = cameraRotation;
-		cameraInputDirection = Vector2.Zero;
-
-		Vector3 velocity = Velocity;
-
-		// Add the gravity.
-		if (!IsOnFloor() && !_flying)
-		{
-            velocity += GetGravity() * (float)delta;
-		}
-        
-
-		// Handle Jump.
-		if (Input.IsActionJustPressed("spacebar"))
-		{
-			if (IsOnFloor())
-				velocity.Y = JumpVelocity;
-			else if (Constants.Dev)
-            {
-                if (!_flying) 
-                    _flying = true;
-                else 
-                    velocity.Y = JumpVelocity; 
-            }
-			
-		}
-        
-        if (Input.IsActionJustPressed("shift") && _flying) velocity.Y = -JumpVelocity; 
-        if (Input.IsActionJustReleased("shift") && _flying) velocity.Y = 0;
-        if (Input.IsActionJustReleased("spacebar") && _flying) velocity.Y = 0;
-		
-		
-
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 inputDir = Input.GetVector("a", "d", "w", "s");
-		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
-		{
-			velocity.X = direction.X * Speed;
-			velocity.Z = direction.Z * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
-		}
-
-
-		Velocity = velocity;
-		MoveAndSlide();
-	}
-	
-	/// <summary>
-	/// The signal for updated Health
-	/// </summary>
-	[Signal] public delegate void HealthChangedEventHandler(float health);
-	[Signal] public delegate void UpdateCoordsEventHandler(Vector3 coords);
-    [Signal] public delegate void PlayerDeadEventHandler();
-	
-	/// <summary>
-	/// Changes the Health of the player.
-	/// </summary>
-	/// <param name="dHealth">The change of health to affect the player.</param>
-	public void ChangeHealth(float dHealth)
-	{
-		this.Health = Mathf.Clamp(this.Health + dHealth, 0, MaxHealth);
-		EmitSignal(SignalName.HealthChanged, this.Health);
-	}
-
-    public void OnDeath()
+    public override void _Ready()
     {
-        EmitSignal(SignalName.PlayerDead);
+        CurrentHealth = MaxHealth;
+        Inventory = new Inventory(Constants.InitialInventorySize);
+        Camera ??= GetNode<Node3D>("Camera3D");
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event.IsActionPressed("leftclick"))
+        {
+            var gameManager = GetNodeOrNull("/root/GameManager");
+            bool isPaused = gameManager?.Get("inPauseMenu").AsBool() ?? false;
+
+            if (!isPaused)
+                Input.MouseMode = Input.MouseModeEnum.Captured;
+        }
+        else if (@event.IsActionPressed("ui_cancel"))
+        {
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+        }
+    }
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (_isDead) return;
+        
+        if (Input.MouseMode == Input.MouseModeEnum.Captured && @event is InputEventMouseMotion motion)
+        {
+            _mouseInput += motion.Relative * MouseSensitivity;
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        EmitSignal(SignalName.UpdateCoords, GlobalPosition);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (_isDead)
+        {
+            Vector3 deadVelocity = Velocity;
+
+            // The player should still fall if dead
+            if (!IsOnFloor())
+            {
+                deadVelocity += GetGravity() * (float)delta;
+            }
+            
+            // Slide to a stop
+            deadVelocity.X = Mathf.MoveToward(deadVelocity.X, 0, Deceleration * (float)delta);
+            deadVelocity.Z = Mathf.MoveToward(deadVelocity.Z, 0, Deceleration * (float)delta);
+            
+            Velocity = deadVelocity;
+            MoveAndSlide();
+            return;
+        }
+
+        ApplyMouseLook();
+        
+        Vector3 velocity = Velocity;
+
+        if (_isFlying)
+        {
+            velocity = ProcessFlightMovement(velocity, (float)delta);
+        }
+        else
+        {
+            velocity = ProcessGroundMovement(velocity, (float)delta);
+        }
+        
+        Velocity = velocity;
+        MoveAndSlide();
+    }
+
+    private void ApplyMouseLook()
+    {
+        if (_mouseInput == Vector2.Zero) return;
+
+        RotateY(-_mouseInput.X);
+
+        if (Camera != null)
+        {
+            Vector3 camRot = Camera.Rotation;
+            camRot.X = Mathf.Clamp(camRot.X - _mouseInput.Y, MinPitch, MaxPitch);
+            Camera.Rotation = camRot;
+        }
+
+        _mouseInput = Vector2.Zero;
+    }
+
+    private Vector3 ProcessGroundMovement(Vector3 velocity, float delta)
+    {
+        if (!IsOnFloor())
+        {
+            velocity += GetGravity() * delta;
+        }
+
+        if (Input.IsActionJustPressed("spacebar"))
+        {
+            if (IsOnFloor())
+            {
+                velocity.Y = JumpVelocity;
+            }
+            else if (Constants.Dev)
+            {
+                _isFlying = true;
+                velocity.Y = 0f;
+            }
+        }
+
+        Vector2 inputDir = Input.GetVector("a", "d", "w", "s");
+        Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+
+        float targetSpeed = direction != Vector3.Zero
+            ? MoveSpeed
+            : 0f;
+        float rate = direction != Vector3.Zero
+            ? Acceleration
+            : Deceleration;
+
+        Vector3 targetVelocity = direction * targetSpeed;
+        velocity.X = Mathf.MoveToward(velocity.X, targetVelocity.X, rate * delta);
+        velocity.Z = Mathf.MoveToward(velocity.Z, targetVelocity.Z, delta * rate);
+
+        return velocity;
+    }
+
+    private Vector3 ProcessFlightMovement(Vector3 velocity, float delta)
+    {
+        if (IsOnFloor() && velocity.Y < 0)
+        {
+            _isFlying = false;
+            return velocity;
+        }
+
+        float verticalInput = 0f;
+        if (Input.IsActionPressed("spacebar")) verticalInput += 1.0f;
+        if (Input.IsActionPressed("shift")) verticalInput -= 1.0f;
+
+        velocity.Y = Mathf.MoveToward(velocity.Y, verticalInput * FlySpeed, Acceleration * delta);
+
+        Vector2 inputDir = Input.GetVector("a", "d", "w", "s");
+        Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+
+        Vector3 targetVelocity = direction * FlySpeed;
+        velocity.X = Mathf.MoveToward(velocity.X, targetVelocity.X, Acceleration * delta);
+        velocity.Z = Mathf.MoveToward(velocity.Z, targetVelocity.Z, Acceleration * delta);
+
+        return velocity;
+    }
+
+    public void ChangeHealth(float amount)
+    {
+        if (_isDead) return;
+
+        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0f, MaxHealth);
+        EmitSignal(SignalName.HealthChanged, CurrentHealth);
+
+        if (CurrentHealth <= 0.0f)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        _isDead = true;
+        _isFlying = false; // this should never be needed, but just in case
+        EmitSignal(SignalName.PlayerDied);
     }
 }
