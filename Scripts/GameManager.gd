@@ -9,3 +9,9 @@ var inPauseMenu: bool = false
 var customSeed: Variant
 
 #endregion 
+
+#region World generation
+
+const DIMENSION := Vector3(16, 64, 16)
+
+#endregion 
