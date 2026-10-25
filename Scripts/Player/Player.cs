@@ -10,7 +10,8 @@ namespace UAM3D.Scripts.Player;
 public partial class Player : CharacterBody3D
 {
 	private bool _flying;
-	
+    private bool _dead = false;
+    
 	private const float Speed = 5.0f;
 	private const float JumpVelocity = 4.5f;
 
@@ -124,6 +125,7 @@ public partial class Player : CharacterBody3D
 	/// </summary>
 	[Signal] public delegate void HealthChangedEventHandler(float health);
 	[Signal] public delegate void UpdateCoordsEventHandler(Vector3 coords);
+    [Signal] public delegate void PlayerDeadEventHandler();
 	
 	/// <summary>
 	/// Changes the Health of the player.
@@ -134,4 +136,9 @@ public partial class Player : CharacterBody3D
 		this.Health = Mathf.Clamp(this.Health + dHealth, 0, MaxHealth);
 		EmitSignal(SignalName.HealthChanged, this.Health);
 	}
+
+    public void OnDeath()
+    {
+        EmitSignal(SignalName.PlayerDead);
+    }
 }
