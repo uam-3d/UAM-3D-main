@@ -56,7 +56,7 @@ public partial class PauseMenu : Control
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (Input.IsActionJustPressed("tab"))
+		if (Input.IsActionJustPressed("esc"))
 		{ 
 			gameManager.Set("inPauseMenu", !gameManager.Get("inPauseMenu").AsBool());
 			if (gameManager.Get("inPauseMenu").AsBool())

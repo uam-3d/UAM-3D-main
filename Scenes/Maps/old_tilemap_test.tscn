@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bdp5ygiryrtfd"]
+
+[ext_resource type="PackedScene" uid="uid://civ6nn18d36gq" path="res://Scenes/UI/pause_menu.tscn" id="1_c11ev"]
+[ext_resource type="PackedScene" uid="uid://god3525uuiv1" path="res://Scenes/Player/player.tscn" id="2_xarm0"]
+[ext_resource type="MeshLibrary" uid="uid://ckx7fxl7jr1ip" path="res://3D Assets/tiles_test.meshlib" id="3_topmv"]
+[ext_resource type="Script" uid="uid://djtgunqi63yhi" path="res://Scripts/Maps/grid_map_world_generator.gd" id="4_qh1ww"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y1d72"]
+
+[sub_resource type="Sky" id="Sky_k0cwc"]
+sky_material = SubResource("ProceduralSkyMaterial_y1d72")
+
+[sub_resource type="Environment" id="Environment_650f5"]
+background_mode = 2
+sky = SubResource("Sky_k0cwc")
+glow_enabled = true
+
+[node name="old_tilemap_test" type="Node3D" unique_id=2072695111]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1613318325]
+environment = SubResource("Environment_650f5")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=376522569]
+transform = Transform3D(0.22414386, 0.12940954, -0.9659258, 0.8365163, 0.48296288, 0.25881904, 0.49999997, -0.86602545, -4.371139e-08, -58.084232, 27.510569, 0)
+spot_range = 10.0
+
+[node name="pauseMenu" parent="." unique_id=1235428074 instance=ExtResource("1_c11ev")]
+visible = false
+
+[node name="Player" parent="." unique_id=423723989 instance=ExtResource("2_xarm0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04097867, 0, 26.692217)
+
+[node name="GridMap" type="GridMap" parent="." unique_id=265721313]
+mesh_library = ExtResource("3_topmv")
+cell_size = Vector3(1, 1, 1)
+script = ExtResource("4_qh1ww")

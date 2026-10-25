@@ -12,8 +12,8 @@ var mouseSensitivity := 0.25
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("leftclick") and !GameManager.inPauseMenu:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	#if event.is_action_pressed("ui_cancel"):
+		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _unhandled_input(event: InputEvent) -> void:
 	var isCameraMotion := (
