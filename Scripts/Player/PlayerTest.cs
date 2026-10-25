@@ -8,17 +8,18 @@ namespace UAM3D.Scripts.Player;
 /// </summary>
 public partial class PlayerTest : Node3D
 {
-	public HudManager HUD;
-	public Player Player;
+	private HudManager hud;
+	private Player player;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		HUD = GetNode<HudManager>("HUD");
-		Player = GetNode<Player>("Players/Player");
+		hud = GetNode<HudManager>("HUD");
+		player = GetNode<Player>("Players/Player");
 		
-		Player.HealthChanged += (float health) => HUD.UpdateHealth(health);
+		player.HealthChanged += (float health) => hud.UpdateHealth(health);
+		player.UpdateCoords += (Vector3 coords) => hud.UpdateCoords(coords);
 		// initialize the HUD
-		HUD.UpdateHealth(Player.Health);
+		hud.UpdateHealth(player.Health);
 	}
 }

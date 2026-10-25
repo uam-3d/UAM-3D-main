@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cuiusmdj1swub"]
+
+[ext_resource type="Theme" uid="uid://c5c66jdli6nai" path="res://Resources/UI/HUD/DefaultText.tres" id="1_jemi4"]
+
+[node name="Coordinates" type="Control" unique_id=706409736]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="CoordinatesLabel" type="Label" parent="." unique_id=1545131207]
+layout_mode = 0
+offset_right = 416.0
+offset_bottom = 136.0
+theme = ExtResource("1_jemi4")
+text = "Coords:"
+
+[node name="CoordinatesValue" type="Label" parent="." unique_id=1038007287]
+layout_mode = 0
+offset_top = 112.0
+offset_right = 465.0
+offset_bottom = 508.0
+theme = ExtResource("1_jemi4")
+text = "x: 676767
+y: 676767
+z: 676767"

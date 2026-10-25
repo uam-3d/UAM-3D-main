@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b2y3otkho0nnf"]
 
+[ext_resource type="Theme" uid="uid://c5c66jdli6nai" path="res://Resources/UI/HUD/DefaultText.tres" id="1_ddrr7"]
+
 [node name="Health" type="Control" unique_id=706409736]
 layout_mode = 3
 anchors_preset = 0
@@ -10,11 +12,13 @@ offset_bottom = 32.0
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 24.0
+theme = ExtResource("1_ddrr7")
 text = "Health:"
 
 [node name="HealthValue" type="Label" parent="." unique_id=1038007287]
 layout_mode = 0
-offset_left = 64.0
-offset_right = 104.0
-offset_bottom = 23.0
+offset_left = 464.0
+offset_right = 661.0
+offset_bottom = 136.0
+theme = ExtResource("1_ddrr7")
 text = "000"

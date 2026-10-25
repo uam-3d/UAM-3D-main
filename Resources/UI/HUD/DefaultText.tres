@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://c5c66jdli6nai"]
+
+[ext_resource type="FontFile" uid="uid://cbs4h1sn4sfmc" path="res://Fonts/sigmarcyrillic.otf" id="1_xboh7"]
+
+[resource]
+default_font = ExtResource("1_xboh7")
+default_font_size = 90
