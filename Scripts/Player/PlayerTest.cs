@@ -20,6 +20,6 @@ public partial class PlayerTest : Node3D
 		player.HealthChanged += (float health) => hud.UpdateHealth(health);
 		player.UpdateCoords += (Vector3 coords) => hud.UpdateCoords(coords);
 		// initialize the HUD
-		hud.UpdateHealth(player.Health);
+		hud.UpdateHealth(player.CurrentHealth);
 	}
 }

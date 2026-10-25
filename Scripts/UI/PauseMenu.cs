@@ -56,12 +56,19 @@ public partial class PauseMenu : Control
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (Input.IsActionJustPressed("esc")) // Open Pause Menu
-		{ // Input.MouseMode is set to "MouseModeEnum.Captured" in dev_player.gd line 15-18
-			GD.Print("ui cancel");
-			ShowMenu();
-			gameManager.Set("inPauseMenu", true);
-			Input.MouseMode = Input.MouseModeEnum.Visible;
+		if (Input.IsActionJustPressed("esc"))
+		{ 
+			gameManager.Set("inPauseMenu", !gameManager.Get("inPauseMenu").AsBool());
+			if (gameManager.Get("inPauseMenu").AsBool())
+			{
+				ShowMenu();
+				Input.MouseMode = Input.MouseModeEnum.Visible;
+			}
+			else
+			{
+				HideMenu();
+				Input.MouseMode = Input.MouseModeEnum.Captured;
+			}
 		}
 	}
 
