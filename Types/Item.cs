@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace UAM3D.Types;
 
 /// <summary>
@@ -8,29 +10,33 @@ public class Item
     /// <summary>
     /// The ID of the item
     /// </summary>
-    public string Id;
+    public string id;
     /// <summary>
     /// The display name of the item
     /// </summary>
-    public string Name;
-    /// <summary>
-    /// The Class of the Item
-    /// </summary>
-    public ItemClass ItemClass;
-    /// <summary>
-    /// The max stack size, unlimited is -1
-    /// </summary>
-    public int MaxStackSize;
+    public string name;
     /// <summary>
     /// Description for the Item
     /// </summary>
-    public string Description;
+    public string description;
+    /// <summary>
+    /// The Class of the Item
+    /// </summary>
+    public ItemClass itemClass;
+    /// <summary>
+    /// The max stack size, unlimited is -1
+    /// </summary>
+    public int maxStackSize;
     /// <summary>
     /// The Item Rarity
     /// </summary>
-    public Rarity Rarity;
+    public Rarity rarity;
     /// <summary>
     /// The Path for the Item Texture
     /// </summary>
-    public string TexturePath;
+    public string texturePath;
+    /// <summary>
+    /// The Recipes that can be used to Obtain the Item
+    /// </summary>
+    public List<Recipe> recipes;
 }
