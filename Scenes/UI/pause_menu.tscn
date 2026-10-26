@@ -69,17 +69,27 @@ theme_override_fonts/font = ExtResource("1_ltd3m")
 theme_override_font_sizes/font_size = 100
 text = "Quit"
 
-[node name="version" type="Label" parent="Control" unique_id=1312329915]
+[node name="Credits" type="Label" parent="Control" unique_id=1312329915]
 layout_mode = 0
 offset_left = 3129.551
 offset_top = 1997.0
 offset_right = 3830.0
-offset_bottom = 2150.0
+offset_bottom = 2098.0
 theme_override_fonts/font = ExtResource("1_ltd3m")
 theme_override_font_sizes/font_size = 32
 text = "Hackclub Terra Week 1
-Version Prototype 1.0.0
 By Jeebow and Benmu"
+horizontal_alignment = 2
+
+[node name="Version" type="Label" parent="Control" unique_id=1581019579]
+layout_mode = 0
+offset_left = 3136.0
+offset_top = 2098.0
+offset_right = 3832.0
+offset_bottom = 2154.0
+theme_override_fonts/font = ExtResource("1_ltd3m")
+theme_override_font_sizes/font_size = 32
+text = "Version [x.x.x]"
 horizontal_alignment = 2
 
 [node name="colonthree" type="Label" parent="Control" unique_id=1941167889]
