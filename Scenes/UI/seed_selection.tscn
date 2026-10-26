@@ -75,6 +75,16 @@ theme_override_fonts/font = ExtResource("2_wtyey")
 theme_override_font_sizes/font_size = 75
 text = "Seeded Run!"
 
+[node name="x" type="Button" parent="Control" unique_id=975765787]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 65.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 32
+text = "X"
+
 [connection signal="pressed" from="Control/fgRect/play" to="Control" method="_on_play_pressed"]
 [connection signal="editing_toggled" from="Control/fgRect/LineEdit" to="Control" method="_on_line_edit_editing_toggled"]
 [connection signal="pressed" from="Control/fgRect/seededRun" to="Control" method="_on_seeded_run_pressed"]
+[connection signal="pressed" from="Control/x" to="Control" method="_on_x_pressed"]

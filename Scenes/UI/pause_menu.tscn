@@ -15,8 +15,10 @@ script = ExtResource("1_jfm1e")
 
 [node name="ColorRect" type="ColorRect" parent="Control" unique_id=668287195]
 layout_mode = 0
-offset_right = 3840.0
-offset_bottom = 2160.0
+offset_left = -13.0
+offset_top = 18.0
+offset_right = 3827.0
+offset_bottom = 2178.0
 color = Color(0.26536053, 0.26536053, 0.2653605, 0.21960784)
 
 [node name="continue" type="Button" parent="Control" unique_id=322195968]
@@ -77,8 +79,8 @@ offset_right = 3830.0
 offset_bottom = 2150.0
 theme_override_fonts/font = ExtResource("1_ltd3m")
 theme_override_font_sizes/font_size = 32
-text = "Hackclub Terra Week 1
-Version Prototype 1.0.0
+text = "Hackclub Terra Week 2
+Version Prototype 1.0.1
 By Jeebow and Benmu"
 horizontal_alignment = 2
 

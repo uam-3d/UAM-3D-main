@@ -3,14 +3,14 @@ using Godot;
 
 namespace UAM3D.Scripts.Maps;
 
-	/// <summary>
-	/// This is the script for a basic chunk loader. It will handle the world generation. Instead of using cubes, This script makes use of vertices and SurfaceTools.
-	/// Each face of each cube is divided into four evenly big triangles. You destroy the blocks by destroying one vertex.
-	/// </summary>
-	
+/// <summary>
+/// This is the script for a basic chunk loader. It will handle the world generation. Instead of using cubes, This script makes use of vertices and SurfaceTools.
+/// Each face of each cube is divided into four evenly big triangles. You destroy the blocks by destroying one vertex.
+/// </summary>
+
 public partial class Chunk : StaticBody3D
 {
-	
+
 	private static readonly Vector3[] Vertices =
 	{
 		// All outer vertices
@@ -22,7 +22,7 @@ public partial class Chunk : StaticBody3D
 		new Vector3(1, 0, 1), // 5
 		new Vector3(0, 1, 1), // 6
 		new Vector3(1, 1, 1), // 7
-		
+
 		// All mid-point vertices
 		new Vector3(0.5f, 0.5f, 1), // 8
 		new Vector3(0.5f, 0.5f, 0), // 9
@@ -51,8 +51,8 @@ public partial class Chunk : StaticBody3D
 	public FastNoiseLite Noise;
 	public RandomNumberGenerator Rng;
 
-	private float Cutoff = 0.1f;
-	
+	private float _cutoff = 0.1f;
+
 	public override void _Ready()
 	{
 		GameManager = GetNode<Node>("/root/GameManager");
@@ -67,6 +67,7 @@ public partial class Chunk : StaticBody3D
 		{
 			Noise.Seed = Rng.RandiRange(-999999999, 999999999);
 		}
+
 		Noise.Frequency = 0.02f;
 		GD.Print(Noise.Seed);
 		Update();
@@ -80,6 +81,7 @@ public partial class Chunk : StaticBody3D
 			MeshInstance.CallDeferred(Node.MethodName.QueueFree);
 			MeshInstance = null;
 		}
+
 		Mesh = new ArrayMesh();
 		MeshInstance = new MeshInstance3D();
 		St.Begin(Godot.Mesh.PrimitiveType.Triangles);
@@ -89,14 +91,46 @@ public partial class Chunk : StaticBody3D
 			{
 				for (int z = 0; z < Dimension.Z; z++)
 				{
-					float Random = Noise.GetNoise3D(x, y, z);
-					if (Random >= Cutoff)
+					if (Noise.GetNoise3D(x, y, z) < _cutoff)
 					{
-						CreateBlock(x, y, z);
+						continue;
 					}
+
+					if (z == 0 || Noise.GetNoise3D(x, y, z - 1) < _cutoff)
+					{
+						NorthFace();
+						continue;
+					}
+					if (z == Dimension.Z - 1 || Noise.GetNoise3D(x, y, z + 1) < _cutoff)
+					{
+						SouthFace();
+						continue;
+					}
+					if (x == 0 || Noise.GetNoise3D(x - 1, y, z) < _cutoff)
+					{
+						WestFace();
+						continue;
+					}
+					if (x == Dimension.X - 1 || Noise.GetNoise3D(x + 1, y, z) < _cutoff)
+					{
+						EastFace();
+						continue;
+					}
+					if (y == 0 || Noise.GetNoise3D(x, y - 1, z) < _cutoff)
+					{
+						BottomFace();
+						continue;
+					}
+					if (y == Dimension.Y - 1 || Noise.GetNoise3D(x, y + 1, z) < _cutoff)
+					{
+						TopFace();
+						continue;
+					}
+					CreateBlock(x, y, z);
 				}
 			}
 		}
+
 		St.GenerateNormals(false);
 		St.Commit(Mesh);
 		MeshInstance.SetMesh(Mesh);
@@ -112,35 +146,67 @@ public partial class Chunk : StaticBody3D
 		CreateFace(RIGHT, x, y, z);
 		CreateFace(FRONT, x, y, z);
 		CreateFace(BACK, x, y, z);
-		
+
 	}
 
 	public void CreateFace(int[] i, int x, int y, int z)
 	{
 		Vector3 Offset = new Vector3(x, y, z);
-		Vector3 a = Vertices[i[0]] + Offset; // Moving the vertex at P(0, 1, 0) by the Vector3 Offset (-> the cubes coordinates)
+		Vector3
+			a = Vertices[i[0]] +
+				Offset; // Moving the vertex at P(0, 1, 0) by the Vector3 Offset (-> the cubes coordinates)
 		Vector3 b = Vertices[i[1]] + Offset;
 		Vector3 c = Vertices[i[2]] + Offset;
 		Vector3 d = Vertices[i[3]] + Offset;
 		Vector3 m = Vertices[i[4]] + Offset; // m is the midpoint of the face
-		
-		St.AddTriangleFan(([a, b, c]));
-		St.AddTriangleFan(([a, c, d]));
-		St.AddTriangleFan(([a, m, b])); // this creates four triangles instead of two
-		St.AddTriangleFan(([a, m, c]));
-		St.AddTriangleFan(([c, m, d]));
-		St.AddTriangleFan(([b, m, d])); 
+
+		// St.AddTriangleFan(([a, b, c]));
+		// St.AddTriangleFan(([a, c, d]));
+
+		St.AddTriangleFan(([a, b, m]));
+		St.AddTriangleFan(([d, a, m]));
+		St.AddTriangleFan(([b, c, m]));
+		St.AddTriangleFan(([c, d, m]));
 	}
 
 	public void PolishUp()
 	{
-
 		DeleteVertex();
 	}
 
 	public void DeleteVertex()
 	{
+
+	}
+
+	public void NorthFace()
+	{
+
+	}
+
+	public void SouthFace()
+	{
+
+	}
+	
+	public void WestFace()
+	{
+
+	}
+
+	public void EastFace()
+	{
+
+	}
+	
+	public void BottomFace()
+	{
 		
+	}    
+	
+	public void TopFace()
+	{
+
 	}
 	
 }
