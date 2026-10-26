@@ -46,6 +46,8 @@ public partial class PauseMenu : Control
 		_confirmNo = GetNode<Button>("confirmMenu/fgRect/no");
 		_confirmNo.Pressed += OnNoPressed;
 
+		GetNode<Label>("Version").Text = $"Version {ProjectSettings.GetSetting("application/config/version", "???")}";
+
 		HideMenu();
 	}
 
