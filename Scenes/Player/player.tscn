@@ -1,8 +1,14 @@
 [gd_scene format=3 uid="uid://god3525uuiv1"]
 
-[ext_resource type="Script" uid="uid://bpsatb44x2ls4" path="res://scripts/player/Player.cs" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bpsatb44x2ls4" path="res://Scripts/Player/Player.cs" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://kisc86medawu" path="res://Scripts/Player/PlayerCamera.cs" id="2_a3d8c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fdpfy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uror3"]
+albedo_color = Color(0.59425557, 0.78415567, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3jck7"]
 
 [node name="Player" type="CharacterBody3D" unique_id=423723989]
 script = ExtResource("1_3vyb7")
@@ -10,6 +16,11 @@ script = ExtResource("1_3vyb7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1290923433]
 shape = SubResource("CapsuleShape3D_fdpfy")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1739797843]
+material_override = SubResource("StandardMaterial3D_uror3")
+mesh = SubResource("CapsuleMesh_3jck7")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=613964702]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 fov = 80.8
+script = ExtResource("2_a3d8c")

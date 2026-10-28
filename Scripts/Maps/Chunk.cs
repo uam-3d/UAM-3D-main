@@ -14,14 +14,22 @@ public partial class Chunk : StaticBody3D
 	private static readonly Vector3[] Vertices =
 	{
 		// All outer vertices
-		new Vector3(0, 0, 0), // 0
-		new Vector3(1, 0, 0), // 1
-		new Vector3(0, 1, 0), // 2
-		new Vector3(1, 1, 0), // 3
-		new Vector3(0, 0, 1), // 4
-		new Vector3(1, 0, 1), // 5
-		new Vector3(0, 1, 1), // 6
-		new Vector3(1, 1, 1), // 7
+		// new Vector3(0, 0, 0), // 0
+		// new Vector3(1, 0, 0), // 1
+		// new Vector3(0, 1, 0), // 2
+		// new Vector3(1, 1, 0), // 3
+		// new Vector3(0, 0, 1), // 4
+		// new Vector3(1, 0, 1), // 5
+		// new Vector3(0, 1, 1), // 6
+		// new Vector3(1, 1, 1), // 7
+		new(0, 0, 1),
+		new(1, 0, 1),
+		new(1, 0, 0),
+		new(0, 0, 0),
+		new(0, 1, 1),
+		new(1, 1, 1),
+		new(1, 1, 0),
+		new(0, 1, 0),
 
 		// All mid-point vertices
 		new Vector3(0.5f, 0.5f, 1), // 8
@@ -30,6 +38,22 @@ public partial class Chunk : StaticBody3D
 		new Vector3(0.5f, 0, 0.5f), // 11
 		new Vector3(1, 0.5f, 0.5f), // 12
 		new Vector3(0, 0.5f, 0.5f) // 13
+	};
+
+	private static readonly int[][] EdgeCorners =
+	{
+		new[] { 0, 1 },
+		new[] { 1, 2 },
+		new[] { 2, 3 },
+		new[] { 3, 0 },
+		new[] { 4, 5 },
+		new[] { 5, 6 },
+		new[] { 6, 7 },
+		new[] { 7, 4 },
+		new[] { 0, 4 },
+		new[] { 1, 5 },
+		new[] { 2, 6 },
+		new[] { 3, 7 }
 	};
 
 	private static readonly int[] TOP = [2, 3, 7, 6, 10];
@@ -52,6 +76,9 @@ public partial class Chunk : StaticBody3D
 	public RandomNumberGenerator Rng;
 
 	private float _cutoff = 0.1f;
+	private int _vertexCount = 0;
+
+	public Vector3 Spawn = new Vector3(0, 0, 0); 
 
 	public override void _Ready()
 	{
@@ -68,14 +95,16 @@ public partial class Chunk : StaticBody3D
 			Noise.Seed = Rng.RandiRange(-999999999, 999999999);
 		}
 
-		Noise.Frequency = 0.02f;
+		Noise.NoiseType = FastNoiseLite.NoiseTypeEnum.Perlin;
+		Noise.Frequency = 0.007f; // smaller Frequency ^= uniform map; higher Frequency is more hilly
 		GD.Print(Noise.Seed);
 		Update();
-		PolishUp();
+		GD.Print(Spawn);
 	}
 
 	public void Update()
 	{
+		_vertexCount = 0;
 		if (MeshInstance != null) // unload
 		{
 			MeshInstance.CallDeferred(Node.MethodName.QueueFree);
@@ -91,42 +120,7 @@ public partial class Chunk : StaticBody3D
 			{
 				for (int z = 0; z < Dimension.Z; z++)
 				{
-					if (Noise.GetNoise3D(x, y, z) < _cutoff)
-					{
-						continue;
-					}
-
-					if (z == 0 || Noise.GetNoise3D(x, y, z - 1) < _cutoff)
-					{
-						NorthFace();
-						continue;
-					}
-					if (z == Dimension.Z - 1 || Noise.GetNoise3D(x, y, z + 1) < _cutoff)
-					{
-						SouthFace();
-						continue;
-					}
-					if (x == 0 || Noise.GetNoise3D(x - 1, y, z) < _cutoff)
-					{
-						WestFace();
-						continue;
-					}
-					if (x == Dimension.X - 1 || Noise.GetNoise3D(x + 1, y, z) < _cutoff)
-					{
-						EastFace();
-						continue;
-					}
-					if (y == 0 || Noise.GetNoise3D(x, y - 1, z) < _cutoff)
-					{
-						BottomFace();
-						continue;
-					}
-					if (y == Dimension.Y - 1 || Noise.GetNoise3D(x, y + 1, z) < _cutoff)
-					{
-						TopFace();
-						continue;
-					}
-					CreateBlock(x, y, z);
+					MarchingCube(new Vector3(x, y, z));
 				}
 			}
 		}
@@ -136,9 +130,29 @@ public partial class Chunk : StaticBody3D
 		MeshInstance.SetMesh(Mesh);
 		AddChild(MeshInstance);
 		MeshInstance.CreateTrimeshCollision();
+		GD.Print("Vertices: ", _vertexCount);
+		if (_vertexCount == 0)
+		{
+			GD.Print("No Vertices.");
+		}
 	}
 
-	public void CreateBlock(int x, int y, int z)
+	// private void MarchingTerrain(Vector3 cellPos)
+	// {
+	// 	int height = Mathf.RoundToInt((Noise.GetNoise2D(cellPos.X, cellPos.Z) + 1) / 2 * Dimension.Y);
+	// 	if (cellPos.Y == height)
+	// 	{
+	// 		MarchingCube(cellPos);
+	// 	}
+	//
+	// 	if (cellPos.Y < height)
+	// 	{
+	// 		CreateBlock(
+	// 			Mathf.RoundToInt(cellPos.X), Mathf.RoundToInt(cellPos.Y), Mathf.RoundToInt(cellPos.Z));
+	// 	}
+	// }
+	
+	private void CreateBlock(int x, int y, int z)
 	{
 		CreateFace(TOP, x, y, z);
 		CreateFace(BOTTOM, x, y, z);
@@ -160,53 +174,75 @@ public partial class Chunk : StaticBody3D
 		Vector3 d = Vertices[i[3]] + Offset;
 		Vector3 m = Vertices[i[4]] + Offset; // m is the midpoint of the face
 
-		// St.AddTriangleFan(([a, b, c]));
-		// St.AddTriangleFan(([a, c, d]));
-
-		St.AddTriangleFan(([a, b, m]));
-		St.AddTriangleFan(([d, a, m]));
-		St.AddTriangleFan(([b, c, m]));
-		St.AddTriangleFan(([c, d, m]));
+		// St.AddTriangleFan(([a, b, m]));
+		// St.AddTriangleFan(([d, a, m]));
+		// St.AddTriangleFan(([b, c, m]));
+		// St.AddTriangleFan(([c, d, m]));
+		St.AddTriangleFan(([a, b, c]));
+		St.AddTriangleFan(([a, c, d]));
 	}
 
-	public void PolishUp()
+	public void MarchingCube(Vector3 cellPos)
 	{
-		DeleteVertex();
+		float height = 0f;
+		float[] noiseValue = new float[8];
+		int cubeIndex = 0;
+		for (int i = 0; i < 8; i++)
+		{
+			Vector3 position = cellPos + Vertices[i];
+			// noiseValue[i] = Noise.GetNoise3D(
+			// 	position.X,
+			// 	position.Y,
+			// 	position.Z
+			// );
+			height = (Noise.GetNoise2D(position.X, position.Z) + 1f) / 2f * Dimension.Y;
+			noiseValue[i] = height - position.Y + _cutoff;
+			if (noiseValue[i] >= _cutoff)
+			{
+				cubeIndex |= 1 << i;
+			}
+		}
+		int[] triangulation = MarchingCubeTable.Triangulation[cubeIndex];
+		for (int i = 0; i + 2 < triangulation.Length && triangulation[i] != -1; i += 3)
+		{
+			Vector3 a = GetEdgeVertex(
+			triangulation[i], cellPos, noiseValue);
+			Vector3 b = GetEdgeVertex(
+			triangulation[i + 1], cellPos, noiseValue);
+			Vector3 c = GetEdgeVertex(
+			triangulation[i + 2], cellPos, noiseValue);
+			St.AddVertex(a);
+			St.AddVertex(b);
+			St.AddVertex(c);
+			_vertexCount += 3;
+		}
+
+		if (cellPos == new Vector3(Dimension.X / 2, cellPos.Y, Dimension.Z / 2))
+		{
+			Spawn = new Vector3(
+				Dimension.X / 2, cellPos.Y + 1, Dimension.Z / 2);
+			GD.Print(Position.Y);
+		}
+	}
+
+	private Vector3 GetEdgeVertex(
+		int edgeIndex, Vector3 cellPos, float[] values)
+	{
+		int indexA = EdgeCorners[edgeIndex][0];
+		int indexB = EdgeCorners[edgeIndex][1];
+		Vector3 a = cellPos + Vertices[indexA];
+		Vector3 b = cellPos + Vertices[indexB];
+		float valueA = values[indexA];
+		float valueB = values[indexB];
+		float delta = valueB - valueA;
+		float t = Mathf.Abs(delta) < Math.Pow(10, -6)
+			? 0.5f
+			: (_cutoff - valueA) / delta;
+		return a.Lerp(b, Mathf.Clamp(t, 0f, 1f));
 	}
 
 	public void DeleteVertex()
 	{
 
 	}
-
-	public void NorthFace()
-	{
-
-	}
-
-	public void SouthFace()
-	{
-
-	}
-	
-	public void WestFace()
-	{
-
-	}
-
-	public void EastFace()
-	{
-
-	}
-	
-	public void BottomFace()
-	{
-		
-	}    
-	
-	public void TopFace()
-	{
-
-	}
-	
 }
