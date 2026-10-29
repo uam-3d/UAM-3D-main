@@ -99,7 +99,6 @@ public partial class Chunk : StaticBody3D
 		Noise.Frequency = 0.007f; // smaller Frequency ^= uniform map; higher Frequency is more hilly
 		GD.Print(Noise.Seed);
 		Update();
-		GD.Print(Spawn);
 	}
 
 	public void Update()
@@ -131,10 +130,6 @@ public partial class Chunk : StaticBody3D
 		AddChild(MeshInstance);
 		MeshInstance.CreateTrimeshCollision();
 		GD.Print("Vertices: ", _vertexCount);
-		if (_vertexCount == 0)
-		{
-			GD.Print("No Vertices.");
-		}
 	}
 
 	// private void MarchingTerrain(Vector3 cellPos)
@@ -190,11 +185,6 @@ public partial class Chunk : StaticBody3D
 		for (int i = 0; i < 8; i++)
 		{
 			Vector3 position = cellPos + Vertices[i];
-			// noiseValue[i] = Noise.GetNoise3D(
-			// 	position.X,
-			// 	position.Y,
-			// 	position.Z
-			// );
 			height = (Noise.GetNoise2D(position.X, position.Z) + 1f) / 2f * Dimension.Y;
 			noiseValue[i] = height - position.Y + _cutoff;
 			if (noiseValue[i] >= _cutoff)
@@ -217,11 +207,13 @@ public partial class Chunk : StaticBody3D
 			_vertexCount += 3;
 		}
 
-		if (cellPos == new Vector3(Dimension.X / 2, cellPos.Y, Dimension.Z / 2))
+		if (Spawn == Vector3.Zero)
 		{
 			Spawn = new Vector3(
-				Dimension.X / 2, cellPos.Y + 1, Dimension.Z / 2);
-			GD.Print(Position.Y);
+				Dimension.X / 2,
+				((Noise.GetNoise2D(Dimension.X / 2, Dimension.Z / 2) + 1f) / 2f * Dimension.Y) + 1,
+				Dimension.Z / 2);
+			GD.Print(Spawn);
 		}
 	}
 

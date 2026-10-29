@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bpsatb44x2ls4" path="res://Scripts/Player/Player.cs" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://kisc86medawu" path="res://Scripts/Player/PlayerCamera.cs" id="2_a3d8c"]
+[ext_resource type="PackedScene" uid="uid://c7sgyen33p3j8" path="res://Scenes/Player/gun.tscn" id="3_xpcdj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fdpfy"]
 
@@ -21,6 +22,9 @@ material_override = SubResource("StandardMaterial3D_uror3")
 mesh = SubResource("CapsuleMesh_3jck7")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=613964702]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(-1, 2.990035e-08, -8.2150535e-08, 0, 0.9396926, 0.34202012, 8.742278e-08, 0.34202012, -0.9396926, 0, 2, -5)
 fov = 80.8
 script = ExtResource("2_a3d8c")
+
+[node name="Gun" parent="." unique_id=53174918 instance=ExtResource("3_xpcdj")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.8032716, 0.22448361, -0.26577055)

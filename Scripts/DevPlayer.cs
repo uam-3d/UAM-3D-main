@@ -29,7 +29,6 @@ public partial class DevPlayer : CharacterBody3D
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		bool isCameraMotion = @event is InputEventMouseMotion && Input.MouseMode == Input.MouseModeEnum.Captured;
-		GD.Print(@event);
 		
 		if (isCameraMotion)
 		{
