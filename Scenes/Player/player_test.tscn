@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bqjep5551f5p7" path="res://Scripts/Player/PlayerTest.cs" id="1_pkpl1"]
 [ext_resource type="PackedScene" uid="uid://8susxa1cp4tw" path="res://Scenes/UI/HUD/HUD.tscn" id="2_fdpfy"]
 [ext_resource type="PackedScene" uid="uid://civ6nn18d36gq" path="res://Scenes/UI/pause_menu.tscn" id="2_ggvqp"]
+[ext_resource type="PackedScene" uid="uid://c767c0i1alq5" path="res://Scenes/UI/Inventory/inventory.tscn" id="3_muiep"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ega07"]
 
@@ -14,11 +15,13 @@ script = ExtResource("1_pkpl1")
 
 [node name="pauseMenu" parent="." unique_id=1235428074 instance=ExtResource("2_ggvqp")]
 
+[node name="inventory" parent="." unique_id=1171508951 instance=ExtResource("3_muiep")]
+
+[node name="HUD" parent="." unique_id=140105494 instance=ExtResource("2_fdpfy")]
+
 [node name="Players" type="Node" parent="." unique_id=2128674121]
 
 [node name="Player" parent="Players" unique_id=423723989 instance=ExtResource("1_a8v3n")]
-
-[node name="HUD" parent="." unique_id=140105494 instance=ExtResource("2_fdpfy")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1682036829]
 transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, -2.35, 0)

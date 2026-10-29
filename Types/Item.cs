@@ -35,8 +35,4 @@ public class Item
     /// The Path for the Item Texture
     /// </summary>
     public string texturePath;
-    /// <summary>
-    /// The Recipes that can be used to Obtain the Item
-    /// </summary>
-    public List<Recipe> recipes;
 }

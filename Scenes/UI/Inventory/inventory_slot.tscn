@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://drwnsjbem0roc"]
+
+[ext_resource type="Theme" uid="uid://c5c66jdli6nai" path="res://Resources/UI/HUD/DefaultText.tres" id="1_c7nxj"]
+[ext_resource type="Script" uid="uid://baomlommc2i6k" path="res://Scripts/UI/Inventory/UISlot.cs" id="1_f5toy"]
+[ext_resource type="Texture2D" uid="uid://dte6odwb40jwj" path="res://icon.svg" id="2_3bxfg"]
+[ext_resource type="Texture2D" uid="uid://yq80s1yhvetm" path="res://temporary sprites/containerSprite.png" id="2_yj5fg"]
+
+[node name="InventorySlot" type="Panel" unique_id=2051211120]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(200, 200)
+offset_right = 200.0
+offset_bottom = 200.0
+script = ExtResource("1_f5toy")
+
+[node name="Container" type="TextureRect" parent="." unique_id=660295309]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_yj5fg")
+
+[node name="ItemSprite" type="TextureRect" parent="." unique_id=18879952]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -65.0
+offset_right = 65.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_3bxfg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="ItemSprite" unique_id=118634468]
+layout_mode = 0
+offset_left = -35.0
+offset_top = 109.0
+offset_right = 165.0
+offset_bottom = 165.0
+theme = ExtResource("1_c7nxj")
+theme_override_font_sizes/font_size = 35
+text = "[0]"
+horizontal_alignment = 2

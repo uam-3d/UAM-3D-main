@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c767c0i1alq5"]
+
+[ext_resource type="Texture2D" uid="uid://yq80s1yhvetm" path="res://temporary sprites/containerSprite.png" id="1_kudq1"]
+[ext_resource type="Script" uid="uid://u8g4aovp1ha2" path="res://Scripts/UI/Inventory/InventoryUI.cs" id="1_l76og"]
+[ext_resource type="Theme" uid="uid://c5c66jdli6nai" path="res://Resources/UI/HUD/DefaultText.tres" id="2_1i8xw"]
+
+[node name="inventory" type="CanvasLayer" unique_id=1171508951]
+
+[node name="Control" type="Control" parent="." unique_id=2003915729]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l76og")
+
+[node name="cover" type="ColorRect" parent="Control" unique_id=633763495]
+layout_mode = 0
+offset_right = 3840.0
+offset_bottom = 2160.0
+color = Color(0.26536053, 0.26536053, 0.2653605, 0.21960784)
+
+[node name="InventoryContainer" type="NinePatchRect" parent="Control" unique_id=655792414]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 256.0
+offset_right = 3136.0
+offset_bottom = 1920.0
+texture = ExtResource("1_kudq1")
+region_rect = Rect2(24, 24, 152, 152)
+
+[node name="GridContainer" type="GridContainer" parent="Control/InventoryContainer" unique_id=1014168184]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 256.0
+offset_right = 1344.0
+offset_bottom = 1600.0
+columns = 5
+
+[node name="Label" type="Label" parent="Control/InventoryContainer" unique_id=1012012220]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 1344.0
+offset_bottom = 256.0
+theme = ExtResource("2_1i8xw")
+theme_override_font_sizes/font_size = 120
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1

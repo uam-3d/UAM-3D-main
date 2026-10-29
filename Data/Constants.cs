@@ -1,7 +1,7 @@
 namespace UAM3D.Data;
 
-public class Constants
+public static class Constants
 {
-    public const bool Dev = true;
-    public const int InitialInventorySize = 20;
+    public const bool DEV = true;
+    public const int INITIAL_INVENTORY_SIZE = 20;
 }
