@@ -36,6 +36,11 @@ project/assembly_name="UAM3D"
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg", "res://addons/rider-plugin/plugin.cfg")
 
+[global_group]
+
+Map=""
+entity=""
+
 [input]
 
 w={

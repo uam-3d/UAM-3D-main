@@ -15,7 +15,7 @@ background_mode = 2
 background_color = Color(0.6218452, 0.76295, 0.7626913, 1)
 sky = SubResource("Sky_botf3")
 
-[node name="tilemapTest" type="Node3D" unique_id=410023534]
+[node name="tilemapTest" type="Node3D" unique_id=410023534 groups=["Map"]]
 script = ExtResource("1_62lox")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1913225458]
