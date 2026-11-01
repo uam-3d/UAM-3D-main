@@ -27,16 +27,16 @@ public partial class HudManager : Scripts.UI.PauseMenu
 	/// <returns></returns>
 	private static string FormatHealth(float health) => Mathf.RoundToInt(health).ToString("D3");
 	
-    /// <summary>
-    /// Updates the Coordinate Display on the HUD.
-    /// </summary>
-    /// <param name="coords">The Coordinates of the player.</param>
+	/// <summary>
+	/// Updates the Coordinate Display on the HUD.
+	/// </summary>
+	/// <param name="coords">The Coordinates of the player.</param>
 	public void UpdateCoords(Vector3 coords) => _coordsDisplay.Text = FormatCoords(coords);
-    
-    /// <summary>
-    /// Formats the Coordinates of the player into three coordinates accurate to two decimal places.
-    /// </summary>
-    /// <param name="coords">The Coordinates of the player.</param>
-    /// <returns></returns>
-    private static string FormatCoords(Vector3 coords) => $"X: {coords.X:F2}\nY: {coords.Y:F2}\nZ: {coords.Z:F2}";
+	
+	/// <summary>
+	/// Formats the Coordinates of the player into three coordinates accurate to two decimal places.
+	/// </summary>
+	/// <param name="coords">The Coordinates of the player.</param>
+	/// <returns></returns>
+	private static string FormatCoords(Vector3 coords) => $"X: {coords.X:F2}\nY: {coords.Y:F2}\nZ: {coords.Z:F2}";
 }

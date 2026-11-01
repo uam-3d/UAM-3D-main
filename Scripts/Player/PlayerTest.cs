@@ -11,22 +11,21 @@ public partial class PlayerTest : Node3D
 {
 	private HudManager _hud;
 	private Player _player;
-    private InventoryUI _inventoryUI;
+	private InventoryUI _inventoryUI;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_hud = GetNode<HudManager>("HUD");
 		_player = GetNode<Player>("Players/Player");
-        _inventoryUI = GetNode<InventoryUI>("inventory/Control"); // remember "control"
+		_inventoryUI = GetNode<InventoryUI>("inventory/Control"); // remember "control"
 		
-        // --- PLAYER SIGNALS ---
+		// --- PLAYER SIGNALS ---
 		_player.HealthChanged += (float health) => _hud.UpdateHealth(health);
 		_player.UpdateCoords += (Vector3 coords) => _hud.UpdateCoords(coords); 
 		_hud.UpdateHealth(_player.CurrentHealth); // initialize the HUD
-        
-        // --- INVENTORY SIGNALS ---
-        _inventoryUI.InventoryOpened += () => _inventoryUI.UpdateInventory(_player.Inventory);
-        
-    }
+		
+		// --- INVENTORY SIGNALS ---
+		_inventoryUI.InventoryOpened += () => _inventoryUI.UpdateInventory(_player.Inventory);
+	}
 }

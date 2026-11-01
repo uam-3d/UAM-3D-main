@@ -15,11 +15,13 @@ public partial class Entity : Node3D
     public virtual void SetHealth(float health)
     {
         if (Invincible) return;
-        
+
         CurrentHealth = Mathf.Clamp(health, 0, MaxHealth);
     }
 
     public virtual void ChangeHealth(float dHealth) => SetHealth(CurrentHealth + dHealth);
 
-    public virtual void Die() { }
+    public virtual void Die()
+    {
+    }
 }

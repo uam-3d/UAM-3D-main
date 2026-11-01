@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://dxl8og78mdgjw"]
 
 [ext_resource type="Script" uid="uid://bqv4mqv6qjak4" path="res://Scripts/Maps/TilemapTest.cs" id="1_62lox"]
+[ext_resource type="PackedScene" uid="uid://8susxa1cp4tw" path="res://Scenes/UI/HUD/HUD.tscn" id="2_fena3"]
 [ext_resource type="Script" uid="uid://b4esdpo3q2i5i" path="res://Scripts/Maps/Chunk.cs" id="4_3p1p3"]
+[ext_resource type="PackedScene" uid="uid://c767c0i1alq5" path="res://Scenes/UI/Inventory/inventory.tscn" id="4_u2u13"]
 [ext_resource type="PackedScene" uid="uid://civ6nn18d36gq" path="res://Scenes/UI/pause_menu.tscn" id="6_05ouu"]
 [ext_resource type="PackedScene" uid="uid://god3525uuiv1" path="res://Scenes/Player/player.tscn" id="6_fena3"]
 
@@ -25,8 +27,12 @@ environment = SubResource("Environment_3jck7")
 transform = Transform3D(0.22414386, 0.12940954, -0.9659258, 0.8365163, 0.48296288, 0.25881904, 0.49999997, -0.86602545, -4.371139e-08, -58.084232, 27.510569, 0)
 spot_range = 10.0
 
+[node name="HUD" parent="." unique_id=140105494 instance=ExtResource("2_fena3")]
+
 [node name="pauseMenu" parent="." unique_id=1235428074 instance=ExtResource("6_05ouu")]
 visible = false
+
+[node name="inventory" parent="." unique_id=1171508951 instance=ExtResource("4_u2u13")]
 
 [node name="Player" parent="." unique_id=423723989 instance=ExtResource("6_fena3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04097867, 0, 26.692217)

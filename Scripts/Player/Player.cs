@@ -16,7 +16,8 @@ public partial class Player : CharacterBody3D
 	[Signal] public delegate void HotbarSlotChangedEventHandler(byte slot);
 	[Signal] public delegate void DamageTakenEventHandler();
 
-	public bool FlyAllowed { get; private set; } = Constants.DEV;
+    public GameMode GameMode { get; private set; } = GameMode.GodMode;
+	public bool FlyAllowed { get; private set; }
 	public float MoveSpeed { get; set; } = 5.0f;
 	public float JumpVelocity { get; set; } = 4.5f;
 	public float FlySpeed { get; set; } = 6.0f;
@@ -57,11 +58,12 @@ public partial class Player : CharacterBody3D
 	private bool _isDead;
 	private Vector2 _mouseInput = Vector2.Zero;
 
-	private static readonly float MinPitch = Mathf.DegToRad(-89.0f);
+    private static readonly float MinPitch = Mathf.DegToRad(-89.0f);
 	private static readonly float MaxPitch = Mathf.DegToRad(89.0f);
 
 	public override void _Ready()
-	{
+    {
+        FlyAllowed = GameMode == GameMode.GodMode;
 		CurrentHealth = MaxHealth;
 		Inventory = new Inventory(Constants.INITIAL_INVENTORY_SIZE);
 		Camera ??= GetNode<Node3D>("Camera3D");
