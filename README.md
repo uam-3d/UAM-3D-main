@@ -1,5 +1,12 @@
 # UAM 3D
 
+
+<img width="1920" height="1080" alt="Week 2 4 Screenshot" src="https://github.com/user-attachments/assets/865b28d0-5828-4da8-9b4b-1cae332d525d" />
+
+## What is UAM?
+UAM stands for Unnamed Asymmetrical Multiplayer. It's not the actual name of the game since none of the developers could come up with a fitting name yet. 
+UAM is a 1 vs all game where a solo player tries to hunt and kill the team players, while said team players try getting stronger to kill the solo player at the end. The solo player starts the game with overpowered stats and abilities, while the team players play a rogue-like game.
+
 UAM3D is an asymmetrical multiplayer roguelike where one player plays against many. 
 
 ## How To Get
@@ -22,4 +29,7 @@ UAM3D is an asymmetrical multiplayer roguelike where one player plays against ma
 uh just click play and press some buttons and explore, also wasd for move and space for jump/fly
 
 ## thats all for now :D
-*also jeebow said i wasnt allowed to put brainrot here :c*
+*also jeebow said i wasn't allowed to put brainrot here :c*
+
+<img width="1920" height="1080" alt="Week 2 2 Screenshot" src="https://github.com/user-attachments/assets/c8cb94c7-df3f-4bfe-943f-4197d4ecfd5d" />
+
