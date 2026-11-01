@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bp5dtarprnleb"
-path="res://.godot/imported/gummed.png-14f8c89633223e5c3ed9ff5af991b76f.ctex"
+uid="uid://byeaxgckifaj3"
+path="res://.godot/imported/erm.png-432354c702f0a394736feb1717f00954.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary sprites/gummed.png"
-dest_files=["res://.godot/imported/gummed.png-14f8c89633223e5c3ed9ff5af991b76f.ctex"]
+source_file="res://2D Assets/erm.png"
+dest_files=["res://.godot/imported/erm.png-432354c702f0a394736feb1717f00954.ctex"]
 
 [params]
 

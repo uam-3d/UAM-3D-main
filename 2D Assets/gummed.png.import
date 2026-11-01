@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv7arh7xedkrd"
-path="res://.godot/imported/oakWood.png-7abd0d2f74d4a5bbb04f4852b4e42f04.ctex"
+uid="uid://bp5dtarprnleb"
+path="res://.godot/imported/gummed.png-2ceb09cfdec085fa37167509c3b1d734.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary sprites/oakWood.png"
-dest_files=["res://.godot/imported/oakWood.png-7abd0d2f74d4a5bbb04f4852b4e42f04.ctex"]
+source_file="res://2D Assets/gummed.png"
+dest_files=["res://.godot/imported/gummed.png-2ceb09cfdec085fa37167509c3b1d734.ctex"]
 
 [params]
 

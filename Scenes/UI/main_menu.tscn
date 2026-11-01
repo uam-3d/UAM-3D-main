@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://vovajoj0evv7" path="res://Scripts/UI/main_menu.gd" id="1_d8nwk"]
 [ext_resource type="Theme" uid="uid://bbhrresdpn56s" path="res://Scenes/UI/Resources/button_test.tres" id="1_p8ccj"]
+[ext_resource type="Texture2D" uid="uid://c3a4ptw6qc5nv" path="res://2D Assets/asymmetrical mode button.png" id="3_o14dv"]
+[ext_resource type="Texture2D" uid="uid://bij6nkrj483th" path="res://2D Assets/asymmetrical mode button PRESSED.png" id="4_mrfpk"]
+[ext_resource type="Texture2D" uid="uid://bq8u8j2makjb8" path="res://2D Assets/asymmetrical mode button HOVER.png" id="5_4pqbp"]
 
 [node name="mainMenu" type="Control" unique_id=21646524]
 layout_mode = 3
@@ -20,18 +23,7 @@ offset_right = 1176.0
 offset_bottom = 1494.0
 theme = ExtResource("1_p8ccj")
 theme_override_font_sizes/font_size = 100
-text = "Solo
-Play"
-
-[node name="mainMode" type="Button" parent="." unique_id=1703745207]
-layout_mode = 0
-offset_left = 1276.0
-offset_top = 71.0
-offset_right = 2564.0
-offset_bottom = 1494.0
-theme = ExtResource("1_p8ccj")
-theme_override_font_sizes/font_size = 100
-text = "Main
+text = "Symmetrical
 Mode"
 
 [node name="symmetricalMode" type="Button" parent="." unique_id=1598343975]
@@ -42,9 +34,19 @@ offset_right = 3652.0
 offset_bottom = 1494.0
 theme = ExtResource("1_p8ccj")
 theme_override_font_sizes/font_size = 100
-text = "Symmetrical
-Mode"
+text = "Hide &
+Seek"
+
+[node name="mainMode" type="TextureButton" parent="." unique_id=2087376659]
+layout_mode = 0
+offset_left = 1276.0
+offset_top = 71.0
+offset_right = 2564.0
+offset_bottom = 1494.0
+texture_normal = ExtResource("3_o14dv")
+texture_pressed = ExtResource("4_mrfpk")
+texture_hover = ExtResource("5_4pqbp")
 
 [connection signal="pressed" from="soloPlay" to="." method="_on_solo_play_pressed"]
-[connection signal="pressed" from="mainMode" to="." method="_on_main_mode_pressed"]
 [connection signal="pressed" from="symmetricalMode" to="." method="_on_symmetrical_mode_pressed"]
+[connection signal="pressed" from="mainMode" to="." method="_on_main_mode_pressed"]

@@ -31,7 +31,7 @@ offset_right = 3715.0
 offset_bottom = 1411.0
 theme_override_fonts/font = ExtResource("2_is55k")
 theme_override_font_sizes/font_size = 75
-text = "Creative Mode"
+text = "Survivor Mode"
 
 [node name="creativeMode" type="Button" parent="." unique_id=752360005]
 layout_mode = 0
@@ -41,7 +41,7 @@ offset_right = 3715.0
 offset_bottom = 1622.0
 theme_override_fonts/font = ExtResource("2_is55k")
 theme_override_font_sizes/font_size = 75
-text = "~~creative mode~~ "
+text = "creative mode (Only for Debugging/Playtesting)"
 
 [node name="oldMode" type="Button" parent="." unique_id=1689171267]
 layout_mode = 0

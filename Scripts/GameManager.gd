@@ -15,7 +15,7 @@ var inInventoryMenu: bool = false
 
 #region World generation
 
-const DIMENSION := Vector3(32, 64, 32)
+const DIMENSION := Vector3(64, 64, 64)
 
 #endregion 
 

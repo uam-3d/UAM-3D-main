@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c7sgyen33p3j8"]
+
+[ext_resource type="Script" uid="uid://je40w3xp134l" path="res://Scripts/Player/Gun.cs" id="1_ho3ce"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynpdj"]
+albedo_color = Color(0.6, 0.6666667, 1, 1)
+metallic = 0.5
+roughness = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uror3"]
+material = SubResource("StandardMaterial3D_ynpdj")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uror3"]
+
+[node name="Gun" type="StaticBody3D" unique_id=53174918]
+script = ExtResource("1_ho3ce")
+
+[node name="Gunpoint" type="Node3D" parent="." unique_id=1016682929]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=158430663]
+transform = Transform3D(-1.45558925e-08, -0.5, 0, 0.333, -2.1855694e-08, 0, 0, 0, 0.333, 0, 0, 0)
+mesh = SubResource("CylinderMesh_uror3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=31488261]
+transform = Transform3D(-1.45558925e-08, -0.5, 0, 0.333, -2.1855694e-08, 0, 0, 0, 0.333, 0, 0, 0)
+shape = SubResource("CylinderShape3D_uror3")

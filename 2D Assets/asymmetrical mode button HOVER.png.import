@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byeaxgckifaj3"
-path="res://.godot/imported/erm.png-c4e81ee62f46459986089a04e7a05610.ctex"
+uid="uid://bq8u8j2makjb8"
+path="res://.godot/imported/asymmetrical mode button HOVER.png-73f0f2e86b78d67a242c91842635841e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary sprites/erm.png"
-dest_files=["res://.godot/imported/erm.png-c4e81ee62f46459986089a04e7a05610.ctex"]
+source_file="res://2D Assets/asymmetrical mode button HOVER.png"
+dest_files=["res://.godot/imported/asymmetrical mode button HOVER.png-73f0f2e86b78d67a242c91842635841e.ctex"]
 
 [params]
 

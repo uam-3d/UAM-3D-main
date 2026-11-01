@@ -140,9 +140,4 @@ public partial class PauseMenu : Control
 		HideSubMenu("confirmMenu");
 		ShowMenu();
 	}
-
-	public override void _Process(double delta)
-	{
-		// GD.Print(Input.MouseMode);
-	}
 }
