@@ -12,6 +12,6 @@ var CustomSeed: Variant
 
 #region World generation
 
-const DIMENSION := Vector3(16, 64, 16)
+const DIMENSION := Vector3(64, 64, 64)
 
 #endregion 

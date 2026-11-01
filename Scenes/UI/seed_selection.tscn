@@ -37,6 +37,15 @@ text = "Alternatively, enter a seed in the following box to play a seeded run.
 Note: Seeds must be whole numbers with a maximum of 9 digits."
 horizontal_alignment = 1
 
+[node name="tempInformation" type="Label" parent="Control/fgRect" unique_id=2100430237]
+layout_mode = 0
+offset_top = 1489.0
+offset_right = 2648.8892
+offset_bottom = 1687.9998
+theme_override_fonts/font = ExtResource("2_wtyey")
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+
 [node name="invalidLabel" type="Label" parent="Control/fgRect" unique_id=1562242450]
 layout_mode = 0
 offset_top = 1381.5

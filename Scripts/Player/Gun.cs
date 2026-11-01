@@ -12,9 +12,11 @@ public partial class Gun : StaticBody3D
 	private PackedScene _bulletScene;
 	private Node3D _gunpoint;
 	private Player _player;
+	private Camera3D _playerCamera;
 
 	public override void _Ready()
 	{
+		_playerCamera = GetNode<Camera3D>("/root/tilemapTest/Player/Camera3D");
 		_bulletScene = GD.Load<PackedScene>("res://Scenes/Player/bullet.tscn");
 		_gunpoint = GetNode<Node3D>("Gunpoint");
 		_player = GetParent<Player>();
@@ -24,12 +26,10 @@ public partial class Gun : StaticBody3D
 	{
 		if (Input.IsActionJustPressed("leftclick"))
 		{
-			GD.Print("clicked");
-			Area3D _bullet = (Area3D)_bulletScene.Instantiate();
-			_bullet.GlobalPosition = _gunpoint.GlobalPosition;
+			Bullet _bullet = (Bullet)_bulletScene.Instantiate();
 			GetTree().GetFirstNodeInGroup("Map").AddChild(_bullet);
+			_bullet.GlobalPosition = _gunpoint.GlobalPosition;
+			_bullet.cameraBasis = _playerCamera.GlobalTransform.Basis;
 		}
-		// Area3D _bullet = (Area3D)_bulletScene.Instantiate();
-		// _bullet.GlobalPosition = _gunpoint.GlobalPosition;
 	}
 }

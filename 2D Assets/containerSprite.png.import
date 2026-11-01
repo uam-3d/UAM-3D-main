@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpo22dcx6xwy8"
-path="res://.godot/imported/woodenSlingshot.png-4ef77a2d5eaff2807ad705936a62956e.ctex"
+uid="uid://yq80s1yhvetm"
+path="res://.godot/imported/containerSprite.png-f5054709fe4d3cb7b0b3b1046256522c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary sprites/woodenSlingshot.png"
-dest_files=["res://.godot/imported/woodenSlingshot.png-4ef77a2d5eaff2807ad705936a62956e.ctex"]
+source_file="res://2D Assets/containerSprite.png"
+dest_files=["res://.godot/imported/containerSprite.png-f5054709fe4d3cb7b0b3b1046256522c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diyosl52gxaas"
-path="res://.godot/imported/wooden gun.png-e02cc7b6cc65f790df41d35a3ae4449b.ctex"
+uid="uid://bpo22dcx6xwy8"
+path="res://.godot/imported/woodenSlingshot.png-96da54dac9f702b40509ceb59ef75a3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary sprites/wooden gun.png"
-dest_files=["res://.godot/imported/wooden gun.png-e02cc7b6cc65f790df41d35a3ae4449b.ctex"]
+source_file="res://2D Assets/woodenSlingshot.png"
+dest_files=["res://.godot/imported/woodenSlingshot.png-96da54dac9f702b40509ceb59ef75a3c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yq80s1yhvetm"
-path="res://.godot/imported/containerSprite.png-2c2d6678ed85aa8adc01b108b06234eb.ctex"
+uid="uid://dv7arh7xedkrd"
+path="res://.godot/imported/oakWood.png-9dec2741f916f0c12d629f008367e9f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://temporary sprites/containerSprite.png"
-dest_files=["res://.godot/imported/containerSprite.png-2c2d6678ed85aa8adc01b108b06234eb.ctex"]
+source_file="res://2D Assets/oakWood.png"
+dest_files=["res://.godot/imported/oakWood.png-9dec2741f916f0c12d629f008367e9f6.ctex"]
 
 [params]
 
