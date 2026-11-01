@@ -7,8 +7,6 @@
 UAM stands for Unnamed Asymmetrical Multiplayer. It's not the actual name of the game since none of the developers could come up with a fitting name yet. 
 UAM is a 1 vs all game where a solo player tries to hunt and kill the team players, while said team players try getting stronger to kill the solo player at the end. The solo player starts the game with overpowered stats and abilities, while the team players play a rogue-like game.
 
-UAM3D is an asymmetrical multiplayer roguelike where one player plays against many. 
-
 ## How To Get
 ### From Release
 1. Go to the [Latest Release](https://github.com/uam-3d/UAM-3D-main/releases/tag/week-0)
