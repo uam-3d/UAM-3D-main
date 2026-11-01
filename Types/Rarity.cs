@@ -1,7 +1,7 @@
 namespace UAM3D.Types;
 
 /// <summary>
-/// The Rarity of an <see cref="Item"/>
+/// The Rarity of an <see cref="Item"/>.
 /// </summary>
 public enum Rarity
 {

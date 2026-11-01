@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace UAM3D.Types;
 
 /// <summary>
-/// //TODO: SUMMARIZE
+/// A class for anything interacted with in the <see cref="Inventory"/>.
 /// </summary>
 public class Item
 {
@@ -35,8 +35,4 @@ public class Item
     /// The Path for the Item Texture
     /// </summary>
     public string texturePath;
-    /// <summary>
-    /// The Recipes that can be used to Obtain the Item
-    /// </summary>
-    public List<Recipe> recipes;
 }

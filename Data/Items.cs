@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UAM3D.Types;
 
 namespace UAM3D.Data;
@@ -6,9 +7,9 @@ namespace UAM3D.Data;
 /// <summary>
 /// All items are stored here
 /// </summary>
-public class Items
+public static class Items
 {
-	public readonly Item TestItem = new()
+	public static readonly Item TestItem = new()
 	{
 		id = "testItem",
 		name = "Test Item", 
@@ -17,23 +18,9 @@ public class Items
 		maxStackSize = (int)StackSize.None,
 		rarity = Rarity.None,
 		texturePath = "null",
-		recipes =
-		[
-			new Recipe
-			{
-				Inputs = new Dictionary<Item, int>
-				{
-					{ new Items().TestItem, 0 },
-				},
-				Outputs = new Dictionary<Item, int>
-				{
-					{ new Items().TestItem, 0 },
-				}
-			}
-		]
 	};
 
-	public readonly Item Stick = new ()
+	public static readonly Item Stick = new ()
 	{
 		id = "stick",
 		name = "Stick",
@@ -42,24 +29,9 @@ public class Items
 		maxStackSize = (int)StackSize.Large,
 		rarity = Rarity.Common,
 		texturePath = "res://temporary sprites/stick.png",
-		recipes =
-		[
-			new Recipe
-			{
-				Inputs = new Dictionary<Item, int>
-				{
-					{ new Items().OakWood, 1 }
-				},
-				Outputs = new Dictionary<Item, int>
-				{
-					{ new Items().Stick, 4 }
-				},
-				Points = 0
-			}
-		]
 	};
 
-	public readonly Item OakWood = new()
+	public static readonly Item OakWood = new()
 	{
 		id = "oakWood",
 		name = "Oak Wood",
@@ -68,57 +40,32 @@ public class Items
 		maxStackSize = (int)StackSize.Large,
 		rarity = Rarity.Common,
 		texturePath = "res://temporary sprites/oakWood.png",
-		recipes = []
 	};
 
-	public readonly Item WoodenGun = new()
+	public static readonly Weapon WoodenGun = new()
 	{
 		id = "woodenGun",
 		name = "Wooden Gun",
 		description = "a wooden gun used to kill enemies. duh.",
-		itemClass = ItemClass.Weapon,
 		maxStackSize = (int)StackSize.Single,
 		rarity = Rarity.Common,
 		texturePath = "res://temporary sprites/wooden gun.png",
-		recipes =
-		[
-			new Recipe
-			{
-				Inputs = new Dictionary<Item, int>
-				{
-					{ new Items().OakWood, 2 },
-					{ new Items().Stick, 1 },
-				},
-				Outputs = new Dictionary<Item, int>
-				{
-					{ new Items().WoodenGun, 1 }
-				},
-				Points = 100,
-			}
-		]
+		baseAttack = 1,
 	};
 
-	public readonly Item DefaultGun = new()
+	public static readonly Weapon DefaultGun = new()
 	{
 		id = "defaultGun",
 		name = "Default Gun",
 		description = "woah marmi, where did you get that from?",
-		itemClass = ItemClass.Weapon,
+		//itemClass = ItemClass.Weapon,
 		maxStackSize = (int)StackSize.Single,
 		rarity = Rarity.Common,
-		texturePath = "null",
-		recipes = 
-		[
-			new Recipe
-			{
-				Inputs = new(),
-				Outputs = new(),
-				Points = 67,
-			}
-		]
+		texturePath = "res://icon.svg",
+		baseAttack = 1
 	};
 
-	public readonly Item IronBar = new()
+	public static readonly Item IronBar = new()
 	{
 		id = "ironBar",
 		name = "Iron Bar",
@@ -127,38 +74,26 @@ public class Items
 		maxStackSize = (int)StackSize.Medium,
 		rarity = Rarity.Common,
 		texturePath = "null",
-		recipes =
-		[
-			new Recipe
-			{
-
-			}
-		]
-
 	};
 
-	public readonly Item Bullet = new()
+	public static readonly Ammunition Bullet = new()
 	{
-		id = "Bullet",
+		id = "bullet",
 		name = "Bullet",
 		description = "A bullet. At high speeds, it can turn a living person into a non-living person.",
-		itemClass = ItemClass.Consumable,
 		maxStackSize = (int)StackSize.VeryLarge,
 		rarity = Rarity.Common,
 		texturePath = "null",
-		recipes =
-		[
-			new Recipe
-			{
-				Inputs = new Dictionary<Item, int>
-				{
-					{new Items().IronBar, 1}
-				},
-				Outputs = new Dictionary<Item, int>
-				{
-					{new Items().Bullet, 16}
-				}
-			}
-		]
+	};
+
+	[Temp]
+	public static readonly Armor TestArmor = new()
+	{
+		id = "testArmor",
+		name = "Test Armor",
+		description = "Testing armor, used for testing purposes",
+		maxStackSize = (int)StackSize.Single,
+		rarity = Rarity.Common,
+		texturePath = "",
 	};
 }
