@@ -195,4 +195,9 @@ public class InventorySlot
 	/// The number of items in the stack.
 	/// </summary>
 	public int amount;
+
+    /// <summary>
+    /// The Item Class(es) of which the Item must be
+    /// </summary>
+    public ItemClass[] takes;
 }

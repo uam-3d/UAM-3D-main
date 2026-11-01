@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UAM3D.Types;
 
 namespace UAM3D.Data;
@@ -41,26 +42,27 @@ public static class Items
 		texturePath = "res://temporary sprites/oakWood.png",
 	};
 
-	public static readonly Item WoodenGun = new()
+	public static readonly Weapon WoodenGun = new()
 	{
 		id = "woodenGun",
 		name = "Wooden Gun",
 		description = "a wooden gun used to kill enemies. duh.",
-		itemClass = ItemClass.Weapon,
 		maxStackSize = (int)StackSize.Single,
 		rarity = Rarity.Common,
 		texturePath = "res://temporary sprites/wooden gun.png",
+		baseAttack = 1,
 	};
 
-	public static readonly Item DefaultGun = new()
+	public static readonly Weapon DefaultGun = new()
 	{
 		id = "defaultGun",
 		name = "Default Gun",
 		description = "woah marmi, where did you get that from?",
-		itemClass = ItemClass.Weapon,
+		//itemClass = ItemClass.Weapon,
 		maxStackSize = (int)StackSize.Single,
 		rarity = Rarity.Common,
 		texturePath = "res://icon.svg",
+		baseAttack = 1
 	};
 
 	public static readonly Item IronBar = new()
@@ -74,14 +76,24 @@ public static class Items
 		texturePath = "null",
 	};
 
-	public static readonly Item Bullet = new()
+	public static readonly Ammunition Bullet = new()
 	{
 		id = "bullet",
 		name = "Bullet",
 		description = "A bullet. At high speeds, it can turn a living person into a non-living person.",
-		itemClass = ItemClass.Consumable,
 		maxStackSize = (int)StackSize.VeryLarge,
 		rarity = Rarity.Common,
 		texturePath = "null",
+	};
+
+	[Temp]
+	public static readonly Armor TestArmor = new()
+	{
+		id = "testArmor",
+		name = "Test Armor",
+		description = "Testing armor, used for testing purposes",
+		maxStackSize = (int)StackSize.Single,
+		rarity = Rarity.Common,
+		texturePath = "",
 	};
 }

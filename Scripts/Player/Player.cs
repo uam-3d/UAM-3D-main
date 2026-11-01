@@ -13,7 +13,10 @@ public partial class Player : CharacterBody3D
 	[Signal] public delegate void HealthChangedEventHandler(float health);
 	[Signal] public delegate void UpdateCoordsEventHandler(Vector3 coords);
 	[Signal] public delegate void PlayerDiedEventHandler();
+	[Signal] public delegate void HotbarSlotChangedEventHandler(byte slot);
+	[Signal] public delegate void DamageTakenEventHandler();
 
+	public bool FlyAllowed { get; private set; } = Constants.DEV;
 	public float MoveSpeed { get; set; } = 5.0f;
 	public float JumpVelocity { get; set; } = 4.5f;
 	public float FlySpeed { get; set; } = 6.0f;
@@ -23,9 +26,32 @@ public partial class Player : CharacterBody3D
 	public float MouseSensitivity { get; set; } = 0.0025f;
 	public Node3D Camera { get; set; }
 	
-	public float MaxHealth { get; set; } = 100;
+	/// <summary>
+	/// The Maximum possible Health of the Player.
+	/// </summary>
+	public float MaxHealth { get; set; } = 100f;
+	
+	/// <summary>
+	/// The current health of the player
+	/// </summary>
 	public float CurrentHealth { get; private set; }
 	public Inventory Inventory { get; private set; }
+	public InventorySlot[] SpecialSlots { get; } =
+	[
+		// --- HAND SLOTS ---
+		new(), // [0] HAND SLOT 1
+		new(), // [1] HAND SLOT 2
+		new(), // [2] HAND SLOT 3
+		
+		// --- ARMOR SLOTS
+		new() {takes = [ItemClass.Armor]}, // [3] HEAD
+		new() {takes = [ItemClass.Armor]}, // [4] BODY
+		new() {takes = [ItemClass.Armor]}, // [5] LEGS
+		new() {takes = [ItemClass.Armor]}, // [6] FEET
+	];
+	public byte EquippedSlot { get; private set; }
+	public float XP { get; private set; }
+	public float Level { get; private set; }
 
 	private bool _isFlying;
 	private bool _isDead;
@@ -44,8 +70,16 @@ public partial class Player : CharacterBody3D
 	[Temp("2026-10-28")]
 	public void AddInvItem()
 	{
-		Inventory.AddItem(Items.Stick);
-		Inventory.AddItem(Items.OakWood);
+		Inventory.AddItem(Items.Stick, Items.Stick.maxStackSize - 1);
+		Inventory.AddItem(Items.OakWood, Items.OakWood.maxStackSize - 1);
+	}
+
+	/// <summary>
+	/// The action which the Debug button calls.
+	/// </summary>
+	public void DebugAction()
+	{
+		AddInvItem();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -62,10 +96,9 @@ public partial class Player : CharacterBody3D
 		{
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
-		// ALSO REMOVE WHEN REMOVING Player@44-49
 		else if (@event.IsActionPressed("debug_button"))
 		{
-			AddInvItem();
+			DebugAction();
 		}
 	}
 
@@ -146,7 +179,7 @@ public partial class Player : CharacterBody3D
 			{
 				velocity.Y = JumpVelocity;
 			}
-			else if (Constants.DEV)
+			else if (FlyAllowed)
 			{
 				_isFlying = true;
 				velocity.Y = 0f;
@@ -194,16 +227,74 @@ public partial class Player : CharacterBody3D
 		return velocity;
 	}
 
-	public void ChangeHealth(float amount)
+	/// <summary>
+	/// Changes the Player's Health via <see cref="SetHealth"/>
+    /// </summary>
+    /// <param name="amount">The amount by which to change the Health</param>
+	public void ChangeHealth(float amount) => SetHealth(CurrentHealth + amount);
+    
+    /// <summary>
+	/// Sets the Player's Health, clamped between 0 and <see cref="MaxHealth"/>
+	/// </summary>
+	/// <param name="amount">The amount of Health to set</param>
+	public void SetHealth(float amount)
 	{
 		if (_isDead) return;
 
-		CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0f, MaxHealth);
+		CurrentHealth = Mathf.Clamp(amount, 0f, MaxHealth);
 		EmitSignal(SignalName.HealthChanged, CurrentHealth);
 
-		if (CurrentHealth <= 0.0f)
+		if (CurrentHealth <= 0.0f) Die();
+	}
+	
+	/// <summary>
+	/// Makes the player take a certain amount of damage, after defense points taken into account.
+	/// </summary>
+	/// <param name="dmg">The amount of damage to apply.</param>
+	public void TakeDamage(float dmg)
+	{
+		float def = 0;
+
+		if (SpecialSlots[3].item is Armor head)
 		{
-			Die();
+			def += head.baseDefense;
+		}
+
+		if (SpecialSlots[4].item is Armor body)
+		{
+			def += body.baseDefense;
+		}
+
+		if (SpecialSlots[5].item is Armor legs)
+		{
+			def += legs.baseDefense;
+		}
+
+		if (SpecialSlots[6].item is Armor feet)
+		{
+			def += feet.baseDefense;
+		}
+
+		float healthToChange = Mathf.Max(dmg - def, 0); // stop the player from gaining health if the defense is too high
+		EmitSignal(SignalName.DamageTaken); // USE THIS SIGNAL WHEN ADDING DAMAGE SOUNDS/VISUALS
+		ChangeHealth(-healthToChange);
+	}
+	
+	public void Attack()
+	{
+		float dmg;
+
+		switch (SpecialSlots[EquippedSlot].item)
+		{
+			// Default to Punching
+			case null:
+				dmg = 1f;
+				break;
+			case Weapon weapon:
+				dmg = weapon.baseAttack;
+				break;
+			default:
+				throw new Exception("how did this happen"); // TODO: add better error message
 		}
 	}
 
@@ -217,9 +308,15 @@ public partial class Player : CharacterBody3D
 	public bool CanMove()
 	{
 		if (_isDead) return false;
+		
 		var gameManager = GetNodeOrNull("/root/GameManager");
 		bool inMenu = gameManager?.Get("inMenu").AsBool() ?? false;
-		if (inMenu) return false; 
-		return true;
+		return !inMenu;
+	}
+
+	public void SwitchHotbarSlot(byte slot)
+	{
+		EquippedSlot = slot;
+		EmitSignal(SignalName.HotbarSlotChanged, slot);
 	}
 }

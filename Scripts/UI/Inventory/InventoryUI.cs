@@ -7,20 +7,29 @@ public partial class InventoryUI : Control
 {
 	[Signal] public delegate void InventoryOpenedEventHandler();
 	
-	private List<UISlot> _slots = new();
+	private List<UISlot> _slots = [];
 	private PackedScene _inventorySlot = GD.Load<PackedScene>("res://Scenes/UI/Inventory/inventory_slot.tscn");
 	private GridContainer _inventoryContainer;
 	public Types.Inventory inventory;
 	private CanvasLayer _parentNode;
 	private Node _gameManager;
+	public Panel[] specialSlots = new Panel[7];
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_inventoryContainer = GetNode<GridContainer>("InventoryContainer/GridContainer");
+		_inventoryContainer = GetNode<GridContainer>("Background/Inventory/GridContainer");
 		_parentNode = GetNode<CanvasLayer>("../");
 		_gameManager = GetNode<Node>("/root/GameManager");
-		
+
+		specialSlots[0] = GetNode<Panel>("Background/PlayerStuff/HandSlot1");
+		specialSlots[1] = GetNode<Panel>("Background/PlayerStuff/HandSlot2");
+		specialSlots[2] = GetNode<Panel>("Background/PlayerStuff/HandSlot3");
+
+		specialSlots[3] = GetNode<Panel>("Background/PlayerStuff/Head");
+		specialSlots[4] = GetNode<Panel>("Background/PlayerStuff/Body");
+		specialSlots[5] = GetNode<Panel>("Background/PlayerStuff/Legs");
+		specialSlots[6] = GetNode<Panel>("Background/PlayerStuff/Feet");
 		CloseInventory();
 	}
 
@@ -28,6 +37,7 @@ public partial class InventoryUI : Control
 	{
 		if (Input.IsActionJustPressed("tab"))
 		{
+			if (_gameManager.Get("inPauseMenu").AsBool()) return;
 			_gameManager.Set("inInventoryMenu", !_gameManager.Get("inInventoryMenu").AsBool());
 			if (_gameManager.Get("inInventoryMenu").AsBool())
 			{

@@ -27,5 +27,4 @@ public sealed class TempAttribute(string dateAdded = null, string dateToRemove =
 {
     private string _dateAdded = dateAdded;
     private string _dateToRemove = dateToRemove;
-    
 }

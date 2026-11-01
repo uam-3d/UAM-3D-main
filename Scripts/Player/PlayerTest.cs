@@ -22,9 +22,8 @@ public partial class PlayerTest : Node3D
 		
         // --- PLAYER SIGNALS ---
 		_player.HealthChanged += (float health) => _hud.UpdateHealth(health);
-		_player.UpdateCoords += (Vector3 coords) => _hud.UpdateCoords(coords);
-		// initialize the HUD
-		_hud.UpdateHealth(_player.CurrentHealth);
+		_player.UpdateCoords += (Vector3 coords) => _hud.UpdateCoords(coords); 
+		_hud.UpdateHealth(_player.CurrentHealth); // initialize the HUD
         
         // --- INVENTORY SIGNALS ---
         _inventoryUI.InventoryOpened += () => _inventoryUI.UpdateInventory(_player.Inventory);

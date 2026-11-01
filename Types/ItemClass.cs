@@ -1,10 +1,13 @@
 namespace UAM3D.Types;
 
+/// <summary>
+/// The class of a given <see cref="Item"/>.
+/// </summary>
 public enum ItemClass
 {
     Unknown,
-    Consumable,
-    Potion,
+    Foodstuffs,
     Armor,
     Weapon,
+    Ammunition,
 }
