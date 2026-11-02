@@ -9,7 +9,7 @@ UAM is a 1 vs all game where a solo player tries to hunt and kill the team playe
 
 ## How To Get
 ### From Release
-1. Go to the [Latest Release](https://github.com/uam-3d/UAM-3D-main/releases/tag/week-0)
+1. Go to the [Latest Release](https://github.com/uam-3d/UAM-3D-main/releases/tag/week-2)
 2. Download the zip
 4. extract and run the .sh file
 5. ???
